@@ -2,98 +2,78 @@
 
 namespace App\Entity;
 
+use App\Repository\RecetteRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * Recette
- *
- * @ORM\Table(name="recette", indexes={@ORM\Index(name="idUser", columns={"idUser"})})
- * @ORM\Entity(repositoryClass=App\Repository\RecetteRepository::class)
- */
+
+ #[ORM\Entity(repositoryClass: RecetteRepository::class)]
+
 class Recette
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="idRec", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idrec;
+    #[ORM\Id]
+    #[ORM\Column]
+    #[ORM\GeneratedValue]
+    private ?int $idrec;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nomRec", type="string", length=30, nullable=false)
-     */
-    private $nomrec;
+    #[Assert\NotBlank(message: ' the  name cant be null ')]
+    #[Assert\Length(max: 35, maxMessage: 'you cant pass the {{ limit }} character.')]
+    #[ORM\Column(length:35)]
+    private ?string $nomrec;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="categoryR", type="string", length=50, nullable=false)
-     */
-    private $categoryr;
+    #[Assert\NotBlank(message: ' the category cant be null ')]
+    #[Assert\Length(max: 35, maxMessage: 'you cant pass the {{ limit }} character.')]
+    #[ORM\Column(length:35)]
+    private ?string $categoryr;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="difficulty", type="string", length=30, nullable=false)
-     */
-    private $difficulty;
+    #[Assert\NotBlank(message: ' the difficulty cant be null ')]
+    #[Assert\Length(max: 30, maxMessage: 'you cant pass the {{ limit }} character.')]
+    #[ORM\Column(length:30)]
+    private ?string $difficulty;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="serves", type="integer", nullable=false)
-     */
-    private $serves;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="prep", type="string", length=15, nullable=false)
-     */
-    private $prep;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="text", length=65535, nullable=false)
-     */
-    private $description;
+    #[Assert\NotBlank(message: ' the serves cant be null ')]
+    #[ORM\Column(type: "integer")]
+    private ?int $serves;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="date", type="string", length=30, nullable=false)
-     */
-    private $date;
+    #[Assert\NotBlank(message: ' the prep cant be null ')]
+    #[Assert\Length(max: 35, maxMessage: 'you cant pass the {{ limit }} character.')]
+    #[ORM\Column(length:35)]
+    private ?string  $prep;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="rating", type="integer", nullable=false)
-     */
-    private $rating;
+    #[Assert\NotBlank(message: ' the description cant be null ')]
+    #[Assert\Length(max: 6000, maxMessage: 'you cant pass the {{ limit }} character.')]
+    #[ORM\Column(length:6000)]
+    private ?string $description;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="imageRec", type="string", length=255, nullable=false)
-     */
-    private $imagerec;
+    #[Assert\NotBlank(message: ' the date cant be null ')]
+    #[Assert\Length(max: 35, maxMessage: 'you cant pass the {{ limit }} character.')]
+    #[ORM\Column(length:35)]
+    private ?string $date;
 
-    /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
-     * })
-     */
+
+
+    #[ORM\Column(type: "integer")]
+    #[Assert\NotBlank(message: ' the rating cant be null ')]
+    private ?int $rating;
+
+
+
+    #[Assert\NotBlank(message: ' the image cant be null ')]
+    #[Assert\Length(max: 35, maxMessage: 'you cant pass the {{ limit }} character.')]
+    #[ORM\Column(length:35)]
+    private ?string $imagerec;
+
+
+
+    #[ORM\ManyToOne(User::class)]
+    #[ORM\JoinColumn(name: "idUser", referencedColumnName: "idUser")]
+    #[Assert\NotBlank(message:'cant be null')]
     private $iduser;
+
+
 
     public function getIdrec(): ?int
     {

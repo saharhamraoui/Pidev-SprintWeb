@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use App\Repository\IngredientsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Ingredients
@@ -10,15 +12,14 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="ingredients", indexes={@ORM\Index(name="idRec", columns={"idRec"})})
  * @ORM\Entity(repositoryClass=App\Repository\IngredientsRepository::class)
  */
+
+ #[ORM\Entity(repositoryClass: IngredientsRepository::class)]
+
 class Ingredients
-{
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="idIng", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
+{   
+    #[ORM\Id]
+    #[ORM\Column]
+    #[ORM\GeneratedValue]
     private $iding;
 
     /**

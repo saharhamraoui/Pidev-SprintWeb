@@ -8,7 +8,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TemplateController extends AbstractController
 {
-    
 
     #[Route('/templateDeconnected', name: 'app_template')]
     public function index2(): Response

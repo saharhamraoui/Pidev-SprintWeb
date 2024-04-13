@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Repository\ReservationRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -11,15 +13,14 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="reservation", indexes={@ORM\Index(name="tableId", columns={"tableId"}), @ORM\Index(name="idUser", columns={"userId"})})
  * @ORM\Entity(repositoryClass=App\Repository\ReservationRepository::class)
  */
+
+ #[ORM\Entity(repositoryClass: ReservationRepository::class)]
+
 class Reservation
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="reservationId", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
+    #[ORM\Id]
+    #[ORM\Column]
+    #[ORM\GeneratedValue]
     private $reservationid;
 
     /**

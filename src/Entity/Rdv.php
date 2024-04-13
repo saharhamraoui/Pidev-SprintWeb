@@ -2,24 +2,25 @@
 
 namespace App\Entity;
 
+use App\Repository\RdvRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
+use App\Repository\RestaurantRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Rdv
  *
  * @ORM\Table(name="rdv", indexes={@ORM\Index(name="id_cabinetFK", columns={"id_cabinet"})})
  * @ORM\Entity(repositoryClass=App\Repository\RdvRepository::class)
  */
+
+ #[ORM\Entity(repositoryClass: RdvRepository::class)]
+
 class Rdv
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
+    #[ORM\Id]
+    #[ORM\Column]
+    #[ORM\GeneratedValue]
     private $id;
 
     /**

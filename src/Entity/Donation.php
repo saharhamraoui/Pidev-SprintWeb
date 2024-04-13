@@ -2,59 +2,44 @@
 
 namespace App\Entity;
 
+use App\Repository\DonationRepository;
+use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * Donation
- *
- * @ORM\Table(name="donation", indexes={@ORM\Index(name="idCamp", columns={"idCamp"}), @ORM\Index(name="idDonator_FK", columns={"idDonator"})})
- * @ORM\Entity(repositoryClass=App\Repository\DonationRepository::class)
- */
+
+#[ORM\Entity(repositoryClass: DonationRepository::class)]
+
 class Donation
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="idDon", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $iddon;
+    #[ORM\Id]
+    #[ORM\Column]
+    #[ORM\GeneratedValue]
+    private ?int $iddon;
+    
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="valeurDon", type="integer", nullable=false)
-     */
-    private $valeurdon;
+    #[Assert\NotBlank(message: ' the value cant be null ')]
+    #[ORM\Column(type: "integer")]
+    private ?int $valeurdon;
 
-    /**
-     * @var \DateTime|null
-     *
-     * @ORM\Column(name="history", type="date", nullable=true)
-     */
-    private $history;
 
-    /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idDonator", referencedColumnName="idUser")
-     * })
-     */
-    private $iddonator;
 
-    /**
-     * @var \Campaign
-     *
-     * @ORM\ManyToOne(targetEntity="Campaign")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idCamp", referencedColumnName="idCamp")
-     * })
-     */
-    private $idcamp;
+    #[ORM\Column(type: "date", nullable: true)]
+    private ?DateTime $history;
+
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name: "idDonator", referencedColumnName: "idUser")]
+    private ?int $iddonator;
+
+
+    #[ORM\ManyToOne(targetEntity: Campaign::class)]
+    #[ORM\JoinColumn(name: "idCamp", referencedColumnName: "idCamp")]
+     private ?int $idcamp; 
+
+
+     
+
 
     public function getIddon(): ?int
     {

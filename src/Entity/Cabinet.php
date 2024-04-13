@@ -1,24 +1,19 @@
 <?php
 
 namespace App\Entity;
-
+use App\Repository\CabinetRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Cabinet
- *
- * @ORM\Table(name="cabinet", indexes={@ORM\Index(name="id_medecinFK", columns={"id_medecin"})})
- * @ORM\Entity(repositoryClass=App\Repository\CabinetRepository::class)
- */
+
+
+ #[ORM\Entity(repositoryClass: CabinetRepository::class)]
+
 class Cabinet
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
+    #[ORM\Id]
+    #[ORM\Column]
+    #[ORM\GeneratedValue]
     private $id;
 
     /**

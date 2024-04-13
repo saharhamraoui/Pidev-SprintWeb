@@ -1,82 +1,65 @@
 <?php
 
 namespace App\Entity;
-
+use App\Repository\CampaignRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * Campaign
- *
- * @ORM\Table(name="campaign")
- * @ORM\Entity(repositoryClass=App\Repository\CampaignRepository::class)
- */
+
+#[ORM\Entity(repositoryClass: CampaignRepository::class)]
+
 class Campaign
-{
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="idCamp", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
+{   
+    
+    #[ORM\Id]
+    #[ORM\Column]
+    #[ORM\GeneratedValue]
     private $idcamp;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="number", type="integer", nullable=false)
-     */
-    private $number;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="goal", type="integer", nullable=false)
-     */
-    private $goal;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="titre", type="string", length=255, nullable=false)
-     */
-    private $titre;
+    #[ORM\Column(type: "integer")]
+    #[Assert\NotBlank(message: ' the number cant be null ')]
+    private ?int $number;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="associationName", type="string", length=255, nullable=false)
-     */
-    private $associationname;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="campaignType", type="string", length=255, nullable=false)
-     */
-    private $campaigntype;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="text", length=65535, nullable=false)
-     */
-    private $description;
+    #[Assert\NotBlank(message: ' the goal cant be null ')]
+    #[ORM\Column(type: "integer")]
+    private ?int $goal;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="image", type="blob", length=65535, nullable=true)
-     */
-    private $image;
+    #[Assert\NotBlank(message: ' the title cant be null ')]
+    #[Assert\Length(max: 35, maxMessage: 'you cant pass the {{ limit }} character.')]
+    #[ORM\Column(length:35)]
+    private ?string $titre;
 
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="current", type="float", precision=10, scale=0, nullable=false)
-     */
-    private $current = '0';
+    #[Assert\NotBlank(message: ' the association name cant be null ')]
+    #[Assert\Length(max: 255, maxMessage: 'you cant pass the {{ limit }} character.')]
+    #[ORM\Column(length:255)]
+    private ?string $associationname;
+
+    #[Assert\NotBlank(message: ' the campaign type cant be null ')]
+    #[Assert\Length(max: 255, maxMessage: 'you cant pass the {{ limit }} character.')]
+    #[ORM\Column(length:255)]
+    private ?string $campaigntype;
+
+    
+    #[Assert\NotBlank(message: ' the description cant be null ')]
+    #[Assert\Length(max: 6000, maxMessage: 'you cant pass the {{ limit }} character.')]
+    #[ORM\Column(length:6000)]
+    private ?string $description;
+
+
+
+    #[ORM\Column(name: "image", type: "blob", length: 65535, nullable: true)]
+    private ?string $image;
+
+   
+
+     #[ORM\Column(type: "float", options: ["precision" => 10, "scale" => 0])]
+     #[Assert\NotBlank(message: 'The current cannot be null')]
+    private ?float $current = '0';
 
     public function getIdcamp(): ?int
     {

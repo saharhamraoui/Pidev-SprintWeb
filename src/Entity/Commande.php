@@ -4,6 +4,9 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CommandeRepository;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Commande
@@ -11,63 +14,44 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="commande", indexes={@ORM\Index(name="frK_idUser", columns={"idUser"}), @ORM\Index(name="restaurantId", columns={"restaurantId"})})
  * @ORM\Entity(repositoryClass=App\Repository\CommandeRepository::class)
  */
+
+ #[ORM\Entity(repositoryClass: CommandeRepository::class)]
+
 class Commande
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="idCommande", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
+    #[ORM\Id]
+    #[ORM\Column]
+    #[ORM\GeneratedValue]
     private $idcommande;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dateCommande", type="datetime", nullable=false)
-     */
-    private $datecommande;
+    
+    #[Assert\NotBlank(message: ' the date cant be null ')]
+    #[ORM\Column(type: "date")]
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="adresseLivraison", type="string", length=30, nullable=false)
-     */
+    private ?DateTime $datecommande;
+
+    #[Assert\NotBlank(message: ' the address cant be null ')]
+    #[Assert\Length(max: 30, maxMessage: 'you cant pass the {{ limit }} character.')]
+    #[ORM\Column(length:30)]
     private $adresselivraison;
 
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="montantTotalCommande", type="float", precision=10, scale=0, nullable=false)
-     */
+     #[ORM\Column(type: "float")]
+     #[Assert\NotBlank(message: 'The total price cannot be null')]
     private $montanttotalcommande;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="plats", type="string", length=255, nullable=false)
-     */
-    private $plats;
+    #[Assert\NotBlank(message: ' the plate cant be null ')]
+    #[Assert\Length(max: 255, maxMessage: 'you cant pass the {{ limit }} character.')]
+    #[ORM\Column(length:255)]
+    private ?string $plats;
 
-    /**
-     * @var \Restaurant
-     *
-     * @ORM\ManyToOne(targetEntity="Restaurant")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="restaurantId", referencedColumnName="restaurantId")
-     * })
-     */
+    
+
+    #[ORM\ManyToOne(targetEntity: "Restaurant")]
+    #[ORM\JoinColumn(name: "restaurantId", referencedColumnName: "restaurantId")]
     private $restaurantid;
-
-    /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
-     * })
-     */
+    
+    #[ORM\ManyToOne(targetEntity: "User")]
+    #[ORM\JoinColumn(name: "idUser", referencedColumnName: "idUser")]
     private $iduser;
 
     public function getIdcommande(): ?int

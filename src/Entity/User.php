@@ -2,87 +2,71 @@
 
 namespace App\Entity;
 use App\Repository\UserRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * User
- *
- * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass=App\Repository\UserRepository::class)
- */
+
+ #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="idUser", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $iduser;
+    #[ORM\Id]
+    #[ORM\Column]
+    #[ORM\GeneratedValue]
+    private ?int $iduser=null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="FirstName", type="string", length=20, nullable=false)
-     */
-    private $firstname;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="LastName", type="string", length=20, nullable=false)
-     */
-    private $lastname;
+    #[Assert\NotBlank(message: ' the first name cant be null ')]
+    #[Assert\Length(max: 35, maxMessage: 'you cant pass the {{ limit }} character.')]
+    #[ORM\Column(length:35)]
+    private ?string $firstname=null;
+    
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="Email", type="string", length=50, nullable=false)
-     */
-    private $email;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="Address", type="string", length=50, nullable=false)
-     */
-    private $address;
+    #[Assert\NotBlank(message: ' the last name cant be null ')]
+    #[Assert\Length(max: 35, maxMessage: 'you cant pass the {{ limit }} character.')]
+    #[ORM\Column(length:35)]
+     private ?string $lastname=null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="Role", type="string", length=20, nullable=false)
-     */
-    private $role;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="Number", type="integer", nullable=false)
-     */
-    private $number;
+    
+    #[Assert\NotBlank(message: '  "Email" cant be null .')]
+    #[Assert\Email(message: 'please enter a valid email.')]
+    #[ORM\Column(length: 50)]
+    private ?string $email=null;
 
-    /**
-     * @var float|null
-     *
-     * @ORM\Column(name="Rating", type="float", precision=10, scale=0, nullable=true)
-     */
-    private $rating;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="Password", type="string", length=40, nullable=false)
-     */
-    private $password;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="picture", type="string", length=300, nullable=true)
-     */
-    private $picture;
+    #[ORM\Column(length: 20)]
+    private ?string $address=null;
+
+    #[ORM\Column(length: 20)]
+    private ?string $role=null;
+
+    #[ORM\Column]
+    private ?int $number = null;
+
+
+    #[Assert\Type(type: 'integer', message: 'the rating must be a number')]
+    #[Assert\Length(max: 5,min: 0, maxMessage: 'you cant pass the {{ limit }}.',minMessage: 'you can give at least {{ limit }}.')]
+    #[ORM\Column]
+     private ?int $rating = null;
+
+
+
+    #[Assert\NotBlank(message: 'the passwork cant be null')]
+    #[Assert\Length(min: 8, minMessage: 'the password my be at least {{ limit }} character.')]
+    #[ORM\Column(length: 255)]
+    #[Assert\Regex(
+        pattern:"/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{7,}/",
+        message: 'Your password must be Strength',
+    )]      private ?string $password=null;
+
+
+
+    #[ORM\Column(length:300 )]
+    private ?string $picture=null;
+
+
 
     public function getIduser(): ?int
     {

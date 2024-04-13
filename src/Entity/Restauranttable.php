@@ -2,24 +2,21 @@
 
 namespace App\Entity;
 use App\Repository\restauranttableRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Restauranttable
- *
- * @ORM\Table(name="restauranttable", indexes={@ORM\Index(name="restaurantId", columns={"restaurantId"})})
- * @ORM\Entity(repositoryClass=App\Repository\RestauranttableRepository::class)
- */
+
+
+ #[ORM\Entity(repositoryClass: RestauranttableRepository::class)]
+
 class Restauranttable
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="tableId", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $tableid;
+    #[ORM\Id]
+    #[ORM\Column]
+    #[ORM\GeneratedValue]
+    private ?int $tableid;
+
+
 
     /**
      * @var bool|null

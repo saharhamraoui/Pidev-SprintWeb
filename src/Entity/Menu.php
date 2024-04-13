@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use App\Repository\MenuRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Menu
@@ -10,15 +12,14 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="menu", indexes={@ORM\Index(name="restaurantId", columns={"restaurantId"})})
  * @ORM\Entity(repositoryClass=App\Repository\MenuRepository::class)
  */
+
+ #[ORM\Entity(repositoryClass: MenuRepository::class)]
+
 class Menu
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="idP", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
+    #[ORM\Id]
+    #[ORM\Column]
+    #[ORM\GeneratedValue]
     private $idp;
 
     /**
