@@ -3,15 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\LivraisonRepository;
 
 /**
  * Livraison
  *
  * @ORM\Table(name="livraison", indexes={@ORM\Index(name="frk_idLivreur", columns={"idLivreur"}), @ORM\Index(name="fk_keyIdCommande", columns={"idCommande"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=App\Repository\LivraisonRepository::class)
  */
-#[ORM\Entity(repositoryClass:LivraisonRepository::class)]
 class Livraison
 {
     /**

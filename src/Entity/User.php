@@ -1,18 +1,15 @@
 <?php
 
 namespace App\Entity;
-
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=App\Repository\UserRepository::class)
  */
-
- #[ORM\Entity(repositoryClass:UserRepository::class)]
 class User
 {
     /**
@@ -79,6 +76,13 @@ class User
      * @ORM\Column(name="Password", type="string", length=40, nullable=false)
      */
     private $password;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="picture", type="string", length=300, nullable=true)
+     */
+    private $picture;
 
     public function getIduser(): ?int
     {
@@ -177,6 +181,18 @@ class User
     public function setPassword(string $password): static
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): static
+    {
+        $this->picture = $picture;
 
         return $this;
     }

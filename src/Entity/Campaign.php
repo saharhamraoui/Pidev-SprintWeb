@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Entity;
-use App\Repository\CampaignRepository;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,9 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
  * Campaign
  *
  * @ORM\Table(name="campaign")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=App\Repository\CampaignRepository::class)
  */
-#[ORM\Entity(repositoryClass:CampaignRepository::class)]
 class Campaign
 {
     /**

@@ -4,15 +4,13 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\RecetteRepository;
 
 /**
  * Recette
  *
  * @ORM\Table(name="recette", indexes={@ORM\Index(name="idUser", columns={"idUser"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=App\Repository\RecetteRepository::class)
  */
-#[ORM\Entity(repositoryClass:RecetteRepository::class)]
 class Recette
 {
     /**

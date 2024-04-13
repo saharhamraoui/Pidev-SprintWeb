@@ -4,15 +4,13 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\DonationRepository;
 
 /**
  * Donation
  *
- * @ORM\Table(name="donation", indexes={@ORM\Index(name="idCamp", columns={"idCamp"})})
- * @ORM\Entity
+ * @ORM\Table(name="donation", indexes={@ORM\Index(name="idCamp", columns={"idCamp"}), @ORM\Index(name="idDonator_FK", columns={"idDonator"})})
+ * @ORM\Entity(repositoryClass=App\Repository\DonationRepository::class)
  */
-#[ORM\Entity(repositoryClass:DonationRepository::class)]
 class Donation
 {
     /**
@@ -32,18 +30,21 @@ class Donation
     private $valeurdon;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="idDonator", type="integer", nullable=false)
-     */
-    private $iddonator;
-
-    /**
      * @var \DateTime|null
      *
      * @ORM\Column(name="history", type="date", nullable=true)
      */
     private $history;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idDonator", referencedColumnName="idUser")
+     * })
+     */
+    private $iddonator;
 
     /**
      * @var \Campaign
@@ -72,18 +73,6 @@ class Donation
         return $this;
     }
 
-    public function getIddonator(): ?int
-    {
-        return $this->iddonator;
-    }
-
-    public function setIddonator(int $iddonator): static
-    {
-        $this->iddonator = $iddonator;
-
-        return $this;
-    }
-
     public function getHistory(): ?\DateTimeInterface
     {
         return $this->history;
@@ -92,6 +81,18 @@ class Donation
     public function setHistory(?\DateTimeInterface $history): static
     {
         $this->history = $history;
+
+        return $this;
+    }
+
+    public function getIddonator(): ?User
+    {
+        return $this->iddonator;
+    }
+
+    public function setIddonator(?User $iddonator): static
+    {
+        $this->iddonator = $iddonator;
 
         return $this;
     }

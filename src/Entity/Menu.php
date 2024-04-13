@@ -3,15 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\MenuRepository;
 
 /**
  * Menu
  *
  * @ORM\Table(name="menu", indexes={@ORM\Index(name="restaurantId", columns={"restaurantId"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=App\Repository\MenuRepository::class)
  */
-#[ORM\Entity(repositoryClass:MenuRepository::class)]
 class Menu
 {
     /**

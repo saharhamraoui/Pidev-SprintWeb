@@ -3,15 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\IngredientsRepository;
 
 /**
  * Ingredients
  *
  * @ORM\Table(name="ingredients", indexes={@ORM\Index(name="idRec", columns={"idRec"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=App\Repository\IngredientsRepository::class)
  */
-#[ORM\Entity(repositoryClass:IngredientsRepository::class)]
 class Ingredients
 {
     /**

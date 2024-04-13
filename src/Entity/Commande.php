@@ -4,16 +4,13 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\CommandeRepository;
 
 /**
  * Commande
  *
- * @ORM\Table(name="commande", indexes={@ORM\Index(name="restaurantId", columns={"restaurantId"}), @ORM\Index(name="frK_idUser", columns={"idUser"})})
- * @ORM\Entity
+ * @ORM\Table(name="commande", indexes={@ORM\Index(name="frK_idUser", columns={"idUser"}), @ORM\Index(name="restaurantId", columns={"restaurantId"})})
+ * @ORM\Entity(repositoryClass=App\Repository\CommandeRepository::class)
  */
-
- #[ORM\Entity(repositoryClass:CommandeRepository::class)]
 class Commande
 {
     /**

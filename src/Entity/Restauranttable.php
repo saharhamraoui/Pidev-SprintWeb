@@ -1,17 +1,15 @@
 <?php
 
 namespace App\Entity;
-
+use App\Repository\restauranttableRepository;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\RestaurantTableRepository;
 
 /**
  * Restauranttable
  *
  * @ORM\Table(name="restauranttable", indexes={@ORM\Index(name="restaurantId", columns={"restaurantId"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=App\Repository\RestauranttableRepository::class)
  */
-#[ORM\Entity(repositoryClass:RestaurantTableRepository::class)]
 class Restauranttable
 {
     /**

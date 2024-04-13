@@ -4,15 +4,13 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\ReservationRepository;
 
 /**
  * Reservation
  *
  * @ORM\Table(name="reservation", indexes={@ORM\Index(name="tableId", columns={"tableId"}), @ORM\Index(name="idUser", columns={"userId"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=App\Repository\ReservationRepository::class)
  */
-#[ORM\Entity(repositoryClass:ReservationRepository::class)]
 class Reservation
 {
     /**

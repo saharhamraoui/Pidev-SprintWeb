@@ -2,17 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\CabinetRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Cabinet
  *
- * @ORM\Table(name="cabinet")
- * @ORM\Entity
+ * @ORM\Table(name="cabinet", indexes={@ORM\Index(name="id_medecinFK", columns={"id_medecin"})})
+ * @ORM\Entity(repositoryClass=App\Repository\CabinetRepository::class)
  */
- #[ORM\Entity(repositoryClass:UserRepository::class)]
-
 class Cabinet
 {
     /**
@@ -53,9 +50,12 @@ class Cabinet
     private $adressemail;
 
     /**
-     * @var int
+     * @var \User
      *
-     * @ORM\Column(name="id_medecin", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_medecin", referencedColumnName="idUser")
+     * })
      */
     private $idMedecin;
 
@@ -112,12 +112,12 @@ class Cabinet
         return $this;
     }
 
-    public function getIdMedecin(): ?int
+    public function getIdMedecin(): ?User
     {
         return $this->idMedecin;
     }
 
-    public function setIdMedecin(int $idMedecin): static
+    public function setIdMedecin(?User $idMedecin): static
     {
         $this->idMedecin = $idMedecin;
 

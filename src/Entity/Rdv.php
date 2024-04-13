@@ -4,15 +4,13 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\RdvRepository;
 
 /**
  * Rdv
  *
- * @ORM\Table(name="rdv")
- * @ORM\Entity
+ * @ORM\Table(name="rdv", indexes={@ORM\Index(name="id_cabinetFK", columns={"id_cabinet"})})
+ * @ORM\Entity(repositoryClass=App\Repository\RdvRepository::class)
  */
-#[ORM\Entity(repositoryClass:RdvRepository::class)]
 class Rdv
 {
     /**
@@ -60,9 +58,12 @@ class Rdv
     private $daterdv;
 
     /**
-     * @var int
+     * @var \Cabinet
      *
-     * @ORM\Column(name="id_cabinet", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Cabinet")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_cabinet", referencedColumnName="id")
+     * })
      */
     private $idCabinet;
 
@@ -131,12 +132,12 @@ class Rdv
         return $this;
     }
 
-    public function getIdCabinet(): ?int
+    public function getIdCabinet(): ?Cabinet
     {
         return $this->idCabinet;
     }
 
-    public function setIdCabinet(int $idCabinet): static
+    public function setIdCabinet(?Cabinet $idCabinet): static
     {
         $this->idCabinet = $idCabinet;
 
