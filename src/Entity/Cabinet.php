@@ -16,42 +16,27 @@ class Cabinet
     #[ORM\GeneratedValue]
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=255, nullable=false)
-     */
-    private $nom;
+    #[Assert\NotBlank(message: ' the name cant be null ')]
+    #[Assert\Length(max: 255, maxMessage: 'you cant pass the {{ limit }} character.')]
+    #[ORM\Column(length:255)]
+    private ?string $nom;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="adresse", type="string", length=255, nullable=false)
-     */
-    private $adresse;
+    #[Assert\NotBlank(message: ' the address cant be null ')]
+    #[Assert\Length(max: 255, maxMessage: 'you cant pass the {{ limit }} character.')]
+    #[ORM\Column(length:255)]
+    private ?string $adresse;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="codePostal", type="integer", nullable=false)
-     */
+    #[Assert\NotBlank(message: ' the code cant be null ')]
+    #[ORM\Column(type: "integer")]
     private $codepostal;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="adresseMail", type="string", length=255, nullable=false)
-     */
-    private $adressemail;
+    #[Assert\NotBlank(message: '  "Email" cannot be null .')]
+    #[Assert\Email(message: 'please enter a valid email.')]
+    #[ORM\Column(length: 255)] 
+    private ?string $adressemail;
 
-    /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_medecin", referencedColumnName="idUser")
-     * })
-     */
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name: "id_medecin", referencedColumnName: "idUser")]
     private $idMedecin;
 
     public function getId(): ?int

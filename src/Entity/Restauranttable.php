@@ -7,19 +7,21 @@ use Doctrine\ORM\Mapping as ORM;
 
 use App\Repository\RestauranttableRepository;
 
-#[ORM\Entity(RepositoryClass: RestauranttableRepository::class)]
+#[ORM\Entity(repositoryClass: RestauranttableRepository::class)]
 class Restauranttable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private $tableid;
+    
 
     #[ORM\Column]
     private $isoccupied;
 
-    #[ORM\ManyToMany(inversedBy: 'Restauranttable')]
-    private $restaurantid;
+    #[ORM\ManyToOne(targetEntity: Restaurant::class)]
+    #[ORM\JoinColumn(name: "restaurantId", referencedColumnName: "restaurantId")]
+    private $restaurantid;    
 
     public function getTableid(): ?int
     {

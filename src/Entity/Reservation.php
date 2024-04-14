@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use App\Repository\ReservationRepository;
 
-#[ORM\Entity(RepositoryClass: ReservationRepository::class)]
+#[ORM\Entity(repositoryClass: ReservationRepository::class)]
 class Reservation
 {
     #[ORM\Id]
@@ -22,10 +22,12 @@ class Reservation
     #[ORM\Column]
     private $numberofpersons;
 
-    #[ORM\OneToOne(inversedBy: 'Reservation')]
+    #[ORM\ManyToOne(targetEntity: Restauranttable::class)]
+    #[ORM\JoinColumn(name: "tableId", referencedColumnName: "tableId")]
     private $tableid;
 
-    #[ORM\ManyToMany(inversedBy: 'Reservation')]
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name: "userId", referencedColumnName: "idUser")]
     private $userid;
 
     public function getReservationid(): ?int

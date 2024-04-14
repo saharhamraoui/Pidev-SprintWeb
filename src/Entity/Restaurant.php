@@ -9,7 +9,7 @@ use Doctrine\ORM\Repository\RepositoryFactory;
 
 use App\Repository\RestaurantRepository;
 
-#[ORM\Entity(RepositoryClass: RestaurantRepository::class)]
+#[ORM\Entity(repositoryClass: RestaurantRepository::class)]
 class Restaurant
 {
     #[ORM\Id]
@@ -29,7 +29,8 @@ class Restaurant
     #[ORM\Column(length: 150)]
     private $imagepath;
 
-    #[ORM\ManyToMany(inversedBy: 'Restaurant')]
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name: "userId", referencedColumnName: "idUser")]
     private $userid;
 
     public function getRestaurantid(): ?int

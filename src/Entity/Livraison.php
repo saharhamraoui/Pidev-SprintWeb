@@ -26,11 +26,10 @@ class Livraison
     #[Assert\NotBlank(message: ' the status cant be null ')]
     #[Assert\Length(max: 255, maxMessage: 'you cant pass the {{ limit }} character.')]
     #[ORM\Column(length:255)]
-    private $statut;
+    private ?string $statut;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
-    #[ORM\JoinColumns([
-    new ORM\JoinColumn(name: "idLivreur", referencedColumnName: "idUser")])]
+    #[ORM\JoinColumn(name: "idLivreur", referencedColumnName: "idUser")]
     private $idlivreur;
 
     public function getIdlivraison(): ?int

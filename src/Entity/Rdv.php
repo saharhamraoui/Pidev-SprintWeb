@@ -6,13 +6,10 @@ use App\Repository\RdvRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\RestaurantRepository;
+use DateTime;
 use Symfony\Component\Validator\Constraints as Assert;
-/**
- * Rdv
- *
- * @ORM\Table(name="rdv", indexes={@ORM\Index(name="id_cabinetFK", columns={"id_cabinet"})})
- * @ORM\Entity(repositoryClass=App\Repository\RdvRepository::class)
- */
+
+
 
  #[ORM\Entity(repositoryClass: RdvRepository::class)]
 
@@ -23,49 +20,31 @@ class Rdv
     #[ORM\GeneratedValue]
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=255, nullable=false)
-     */
-    private $nom;
+    #[Assert\NotBlank(message: ' the first name cant be null ')]
+    #[Assert\Length(max: 255, maxMessage: 'you cant pass the {{ limit }} character.')]
+    #[ORM\Column(length:255)]
+    private ?string $nom;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="prenom", type="string", length=255, nullable=false)
-     */
-    private $prenom;
+    #[Assert\NotBlank(message: ' the last name cant be null ')]
+    #[Assert\Length(max: 255, maxMessage: 'you cant pass the {{ limit }} character.')]
+    #[ORM\Column(length:255)]
+    private ?string $prenom;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="numTel", type="integer", nullable=false)
-     */
+    #[Assert\NotBlank(message: ' the tel cant be null ')]
+    #[ORM\Column(type: "integer")]
     private $numtel;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255, nullable=false)
-     */
-    private $email;
+    #[Assert\NotBlank(message: '  "Email" cant be null .')]
+    #[Assert\Email(message: 'please enter a valid email.')]
+    #[ORM\Column(length: 50)]
+    private ?string $email;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dateRdv", type="date", nullable=false)
-     */
-    private $daterdv;
+    #[ORM\Column(type: "date", nullable: true)]
 
-    /**
-     * @var \Cabinet
-     *
-     * @ORM\ManyToOne(targetEntity="Cabinet")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_cabinet", referencedColumnName="id")
-     * })
-     */
+    private ?DateTime $daterdv;
+
+    #[ORM\ManyToOne(targetEntity: Cabinet::class)]
+    #[ORM\JoinColumn(name: "id_cabinet", referencedColumnName: "id")]
     private $idCabinet;
 
     public function getId(): ?int

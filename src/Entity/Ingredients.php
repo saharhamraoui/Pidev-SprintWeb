@@ -6,12 +6,9 @@ use App\Repository\IngredientsRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * Ingredients
- *
- * @ORM\Table(name="ingredients", indexes={@ORM\Index(name="idRec", columns={"idRec"})})
- * @ORM\Entity(repositoryClass=App\Repository\IngredientsRepository::class)
- */
+
+
+
 
  #[ORM\Entity(repositoryClass: IngredientsRepository::class)]
 
@@ -22,28 +19,18 @@ class Ingredients
     #[ORM\GeneratedValue]
     private $iding;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nameIng", type="string", length=50, nullable=false)
-     */
-    private $nameing;
+    #[Assert\NotBlank(message: ' the bame cannot be null ')]
+    #[Assert\Length(max: 50, maxMessage: 'you cant pass the {{ limit }} character.')]
+    #[ORM\Column(length:50)]
+    private ?string $nameing;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="amount", type="string", length=50, nullable=false)
-     */
-    private $amount;
+    #[Assert\NotBlank(message: ' the amount cant be null ')]
+    #[Assert\Length(max: 50, maxMessage: 'you cant pass the {{ limit }} character.')]
+    #[ORM\Column(length:50)]
+    private ?string $amount;
 
-    /**
-     * @var \Recette
-     *
-     * @ORM\ManyToOne(targetEntity="Recette")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idRec", referencedColumnName="idRec")
-     * })
-     */
+    #[ORM\ManyToOne(targetEntity: Recette::class)]
+    #[ORM\JoinColumn(name: "idRec", referencedColumnName: "idRec")]
     private $idrec;
 
     public function getIding(): ?int

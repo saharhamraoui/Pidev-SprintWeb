@@ -6,12 +6,7 @@ use App\Repository\MenuRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * Menu
- *
- * @ORM\Table(name="menu", indexes={@ORM\Index(name="restaurantId", columns={"restaurantId"})})
- * @ORM\Entity(repositoryClass=App\Repository\MenuRepository::class)
- */
+
 
  #[ORM\Entity(repositoryClass: MenuRepository::class)]
 
@@ -22,49 +17,33 @@ class Menu
     #[ORM\GeneratedValue]
     private $idp;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nameP", type="string", length=30, nullable=false)
-     */
-    private $namep;
+    #[Assert\NotBlank(message: ' the name cant be null ')]
+    #[Assert\Length(max: 30, maxMessage: 'you cant pass the {{ limit }} character.')]
+    #[ORM\Column(length:30)]
+    private ?string $namep;
 
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="priceP", type="float", precision=10, scale=0, nullable=false)
-     */
-    private $pricep;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="categoryP", type="string", length=100, nullable=false)
-     */
-    private $categoryp;
+     #[ORM\Column(type: "float", options: ["precision" => 10, "scale" => 0])]
+     #[Assert\NotBlank(message: 'The price cannot be null')]
+    private ?float $pricep;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="ingredientsP", type="string", length=255, nullable=false)
-     */
-    private $ingredientsp;
+    #[Assert\NotBlank(message: ' the category cannot be null ')]
+    #[Assert\Length(max: 100, maxMessage: 'you cant pass the {{ limit }} character.')]
+    #[ORM\Column(length:100)]
+    private ?string $categoryp;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="imageP", type="string", length=255, nullable=false)
-     */
-    private $imagep;
+    #[Assert\NotBlank(message: ' this field cannot be null ')]
+    #[Assert\Length(max: 255, maxMessage: 'you cant pass the {{ limit }} character.')]
+    #[ORM\Column(length:255)]
+    private ?string $ingredientsp;
 
-    /**
-     * @var \Restaurant
-     *
-     * @ORM\ManyToOne(targetEntity="Restaurant")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="restaurantId", referencedColumnName="restaurantId")
-     * })
-     */
+    #[Assert\NotBlank(message: ' the image cant be null ')]
+    #[Assert\Length(max: 255, maxMessage: 'you cant pass the {{ limit }} character.')]
+    #[ORM\Column(length:255)]
+    private ?string $imagep;
+
+    #[ORM\ManyToOne(targetEntity: Restaurant::class)]
+    #[ORM\JoinColumn(name: "restaurantId", referencedColumnName: "restaurantId")]
     private $restaurantid;
 
     public function getIdp(): ?int

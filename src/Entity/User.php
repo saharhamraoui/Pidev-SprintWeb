@@ -59,7 +59,8 @@ class User
     #[Assert\Regex(
         pattern:"/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{7,}/",
         message: 'Your password must be Strength',
-    )]      private ?string $password=null;
+    )]  
+    private ?string $password=null;
 
 
 
