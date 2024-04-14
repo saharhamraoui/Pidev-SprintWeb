@@ -24,4 +24,12 @@ class TemplateController extends AbstractController
             'controller_name' => 'TemplateController',
         ]);
     }
+
+    #[Route('/baseBack', name: 'app_template')]
+    public function callBack(): Response
+    {
+        return $this->render('baseBack.html.twig', [
+            'controller_name' => 'TemplateController',
+        ]);
+    }
 }
