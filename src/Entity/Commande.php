@@ -8,12 +8,7 @@ use App\Repository\CommandeRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\DateTime;
 
-/**
- * Commande
- *
- * @ORM\Table(name="commande", indexes={@ORM\Index(name="frK_idUser", columns={"idUser"}), @ORM\Index(name="restaurantId", columns={"restaurantId"})})
- * @ORM\Entity(repositoryClass=App\Repository\CommandeRepository::class)
- */
+
 
  #[ORM\Entity(repositoryClass: CommandeRepository::class)]
 

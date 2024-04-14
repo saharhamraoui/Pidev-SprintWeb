@@ -1,38 +1,24 @@
 <?php
 
 namespace App\Entity;
-use App\Repository\restauranttableRepository;
-use Symfony\Component\Validator\Constraints as Assert;
+
+use Doctrine\ORM\Repository;
 use Doctrine\ORM\Mapping as ORM;
 
+use App\Repository\RestauranttableRepository;
 
-
- #[ORM\Entity(repositoryClass: RestauranttableRepository::class)]
-
+#[ORM\Entity(RepositoryClass: RestauranttableRepository::class)]
 class Restauranttable
 {
     #[ORM\Id]
-    #[ORM\Column]
     #[ORM\GeneratedValue]
-    private ?int $tableid;
+    #[ORM\Column]
+    private $tableid;
 
-
-
-    /**
-     * @var bool|null
-     *
-     * @ORM\Column(name="isOccupied", type="boolean", nullable=true)
-     */
+    #[ORM\Column]
     private $isoccupied;
 
-    /**
-     * @var \Restaurant
-     *
-     * @ORM\ManyToOne(targetEntity="Restaurant")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="restaurantId", referencedColumnName="restaurantId")
-     * })
-     */
+    #[ORM\ManyToMany(inversedBy: 'Restauranttable')]
     private $restaurantid;
 
     public function getTableid(): ?int
@@ -63,6 +49,4 @@ class Restauranttable
 
         return $this;
     }
-
-
 }

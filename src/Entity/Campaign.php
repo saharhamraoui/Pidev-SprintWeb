@@ -59,7 +59,7 @@ class Campaign
 
      #[ORM\Column(type: "float", options: ["precision" => 10, "scale" => 0])]
      #[Assert\NotBlank(message: 'The current cannot be null')]
-    private ?float $current = '0';
+    private ?float $current = 0;
 
     public function getIdcamp(): ?int
     {

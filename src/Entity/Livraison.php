@@ -6,12 +6,7 @@ use App\Repository\LivraisonRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * Livraison
- *
- * @ORM\Table(name="livraison", indexes={@ORM\Index(name="frk_idLivreur", columns={"idLivreur"}), @ORM\Index(name="fk_keyIdCommande", columns={"idCommande"})})
- * @ORM\Entity(repositoryClass=App\Repository\LivraisonRepository::class)
- */
+
 #[ORM\Entity(repositoryClass: LivraisonRepository::class)]
 
 class Livraison
@@ -21,28 +16,21 @@ class Livraison
     #[ORM\GeneratedValue]
     private $idlivraison;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="idCommande", type="integer", nullable=false)
-     */
+   
+    #[Assert\NotBlank(message: ' the id cant be null ')]
+    #[ORM\Column(type: "integer")]
     private $idcommande;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="statut", type="string", length=255, nullable=false)
-     */
+
+
+    #[Assert\NotBlank(message: ' the status cant be null ')]
+    #[Assert\Length(max: 255, maxMessage: 'you cant pass the {{ limit }} character.')]
+    #[ORM\Column(length:255)]
     private $statut;
 
-    /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idLivreur", referencedColumnName="idUser")
-     * })
-     */
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumns([
+    new ORM\JoinColumn(name: "idLivreur", referencedColumnName: "idUser")])]
     private $idlivreur;
 
     public function getIdlivraison(): ?int

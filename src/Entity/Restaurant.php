@@ -2,57 +2,34 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Repository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Repository\RepositoryFactory;
+
 use App\Repository\RestaurantRepository;
-use Symfony\Component\Validator\Constraints as Assert;
 
-
-#[ORM\Entity(repositoryClass: RestaurantRepository::class)]
-
+#[ORM\Entity(RepositoryClass: RestaurantRepository::class)]
 class Restaurant
 {
     #[ORM\Id]
-    #[ORM\Column]
     #[ORM\GeneratedValue]
+    #[ORM\Column]
     private $restaurantid;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255, nullable=false)
-     */
+    #[ORM\Column(length: 150)]
     private $name;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="address", type="string", length=255, nullable=false)
-     */
+    #[ORM\Column(length: 150)]
     private $address;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="description", type="text", length=65535, nullable=true)
-     */
+    #[ORM\Column(length: 150)]
     private $description;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="imagePath", type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(length: 150)]
     private $imagepath;
 
-    /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="userId", referencedColumnName="idUser")
-     * })
-     */
+    #[ORM\ManyToMany(inversedBy: 'Restaurant')]
     private $userid;
 
     public function getRestaurantid(): ?int
@@ -119,6 +96,4 @@ class Restaurant
 
         return $this;
     }
-
-
 }

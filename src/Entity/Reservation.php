@@ -2,59 +2,30 @@
 
 namespace App\Entity;
 
-use App\Repository\ReservationRepository;
-use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Repository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Reservation
- *
- * @ORM\Table(name="reservation", indexes={@ORM\Index(name="tableId", columns={"tableId"}), @ORM\Index(name="idUser", columns={"userId"})})
- * @ORM\Entity(repositoryClass=App\Repository\ReservationRepository::class)
- */
+use App\Repository\ReservationRepository;
 
- #[ORM\Entity(repositoryClass: ReservationRepository::class)]
-
+#[ORM\Entity(RepositoryClass: ReservationRepository::class)]
 class Reservation
 {
     #[ORM\Id]
-    #[ORM\Column]
     #[ORM\GeneratedValue]
+    #[ORM\Column]
     private $reservationid;
 
-    /**
-     * @var \DateTime|null
-     *
-     * @ORM\Column(name="dateTime", type="datetime", nullable=true)
-     */
+    #[ORM\Column]
     private $datetime;
 
-    /**
-     * @var int|null
-     *
-     * @ORM\Column(name="numberOfPersons", type="integer", nullable=true)
-     */
+    #[ORM\Column]
     private $numberofpersons;
 
-    /**
-     * @var \Restauranttable
-     *
-     * @ORM\ManyToOne(targetEntity="Restauranttable")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="tableId", referencedColumnName="tableId")
-     * })
-     */
+    #[ORM\OneToOne(inversedBy: 'Reservation')]
     private $tableid;
 
-    /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="userId", referencedColumnName="idUser")
-     * })
-     */
+    #[ORM\ManyToMany(inversedBy: 'Reservation')]
     private $userid;
 
     public function getReservationid(): ?int
@@ -109,6 +80,4 @@ class Reservation
 
         return $this;
     }
-
-
 }
