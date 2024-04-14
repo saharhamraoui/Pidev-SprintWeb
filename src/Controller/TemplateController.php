@@ -12,7 +12,7 @@ class TemplateController extends AbstractController
     #[Route('/templateDeconnected', name: 'app_template')]
     public function index2(): Response
     {
-        return $this->render('baseFrontDeconnected.html.twig', [
+        return $this->render('test.html.twig', [
             'controller_name' => 'TemplateController',
         ]);
     }
@@ -28,7 +28,7 @@ class TemplateController extends AbstractController
     #[Route('/baseBack', name: 'app_template')]
     public function callBack(): Response
     {
-        return $this->render('baseBack.html.twig', [
+        return $this->render('template/test.html.twig', [
             'controller_name' => 'TemplateController',
         ]);
     }

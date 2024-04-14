@@ -7,25 +7,25 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
-    <link rel="shortcut icon" type="image/x-icon" href="FrontOffice/img/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('FrontOffice/img/favicon.ico')}}">
 
 	<!-- CSS here -->
 {% block style %}
 
 {% endblock %}
 
-	<link rel="stylesheet" href="FrontOffice/css/bootstrap.min.css">
-	<link rel="stylesheet" href="FrontOffice/css/owl.carousel.min.css">
-	<link rel="stylesheet" href="FrontOffice/css/slicknav.css">
-    <link rel="stylesheet" href="FrontOffice/css/flaticon.css">
-    <link rel="stylesheet" href="FrontOffice/css/gijgo.css">
-	<link rel="stylesheet" href="FrontOffice/css/animate.min.css">
-	<link rel="stylesheet" href="FrontOffice/css/magnific-popup.css">
-	<link rel="stylesheet" href="FrontOffice/css/fontawesome-all.min.css">
-	<link rel="stylesheet" href="FrontOffice/css/themify-icons.css">
-	<link rel="stylesheet" href="FrontOffice/css/slick.css">
-	<link rel="stylesheet" href="FrontOffice/css/nice-select.css">
-	<link rel="stylesheet" href="FrontOffice/css/style.css">
+	<link rel="stylesheet" href="{{ asset('FrontOffice/css/bootstrap.min.css')}}">
+	<link rel="stylesheet" href="{{ asset('FrontOffice/css/owl.carousel.min.css')}}">
+	<link rel="stylesheet" href="{{ asset('FrontOffice/css/slicknav.css')}}">
+    <link rel="stylesheet" href="{{ asset('FrontOffice/css/flaticon.css')}}">
+    <link rel="stylesheet" href="{{ asset('FrontOffice/css/gijgo.css')}}">
+	<link rel="stylesheet" href="{{ asset('FrontOffice/css/animate.min.css')}}">
+	<link rel="stylesheet" href="{{ asset('FrontOffice/css/magnific-popup.css')}}">
+	<link rel="stylesheet" href="{{ asset('FrontOffice/css/fontawesome-all.min.css')}}">
+	<link rel="stylesheet" href="{{ asset('FrontOffice/css/themify-icons.css')}}">
+	<link rel="stylesheet" href="{{ asset('FrontOffice/css/slick.css')}}">
+	<link rel="stylesheet" href="{{ asset('FrontOffice/css/nice-select.css')}}">
+	<link rel="stylesheet" href="{{ asset('FrontOffice/css/style.css')}}">
 
 </head>
 <body>
@@ -35,7 +35,7 @@
             <div class="preloader-inner position-relative">
                 <div class="preloader-circle"></div>
                 <div class="preloader-img pere-text">
-                    <img src="FrontOffice/img/logo/logo.png" alt="">
+                    <img src="{{ asset('FrontOffice/img/logo/logo.png')}}" alt="">
                 </div>
             </div>
         </div>
@@ -52,7 +52,7 @@
                             <!-- Logo -->
                             <div class="col-xl-2 col-lg-2 col-md-1">
                                 <div class="logo">
-                                    <a href="index.html"><img src="FrontOffice/img/logo/logo.png" alt=""></a>
+                                    <a href="index.html"><img src="{{ asset('FrontOffice/img/logo/logo.png')}}" alt=""></a>
                                 </div>
                             </div>
                             <div class="col-xl-10 col-lg-10 col-md-10">
@@ -88,10 +88,13 @@
     </header>
 {% endblock %}
 
-{% block body %}
     <main>
+{% block body %}
+
         <!--? slider Area Start-->
         <div class="slider-area ">
+
+
             <div class="slider-active">
                 <!-- Single Slider -->
                 <div class="single-slider slider-height d-flex align-items-center">
@@ -111,6 +114,7 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- Single Slider -->
                 <div class="single-slider slider-height d-flex align-items-center">
                     <div class="container">
@@ -590,7 +594,7 @@
             </div>
         </div>
         <!-- Our Services End -->
-       
+
         <!--? Blog Area Start -->
         <section class="blogs-area section-padding30">
             <div class="container">
@@ -641,13 +645,15 @@
             </div>
         </section>
         <!-- Blog Area End -->
+               {% endblock %}
+
     </main>
-{% endblock %}
+
 
 {% block footer %}
     <footer>
         <!--? Footer Start-->
-        <div class="footer-area section-bg" data-background="FrontOffice/img/gallery/section_bg02.png">
+        <div class="footer-area section-bg" data-background="{{ asset('FrontOffice/img/gallery/section_bg02.png')}}">
             <div class="container">
                 <div class="footer-top footer-padding">
                     <div class="row d-flex justify-content-between">
@@ -655,7 +661,7 @@
                             <div class="single-footer-caption mb-50">
                                 <!-- logo -->
                                 <div class="footer-logo">
-                                    <a href="index.html"><img src="FrontOffice/img/logo/logo.png" alt=""></a>
+                                    <a href="index.html"><img src="{{ asset('FrontOffice/img/logo/logo.png')}}" alt=""></a>
                                 </div>
                             </div>
                         </div>
@@ -693,12 +699,12 @@
                                 </div>
                                 <div class="instagram-gellay">
                                     <ul class="insta-feed">
-                                        <li><a href="#"><img src="FrontOffice/img/gallery/instagram1.png" alt=""></a></li>
-                                        <li><a href="#"><img src="FrontOffice/img/gallery/instagram2.png" alt=""></a></li>
-                                        <li><a href="#"><img src="FrontOffice/img/gallery/instagram3.png" alt=""></a></li>
-                                        <li><a href="#"><img src="FrontOffice/img/gallery/instagram4.png" alt=""></a></li>
-                                        <li><a href="#"><img src="FrontOffice/img/gallery/instagram5.png" alt=""></a></li>
-                                        <li><a href="#"><img src="FrontOffice/img/gallery/instagram6.png" alt=""></a></li>
+                                        <li><a href="#"><img src="{{ asset('FrontOffice/img/gallery/instagram1.png')}}" alt=""></a></li>
+                                        <li><a href="#"><img src="{{ asset('FrontOffice/img/gallery/instagram2.png')}}" alt=""></a></li>
+                                        <li><a href="#"><img src="{{ asset('FrontOffice/img/gallery/instagram3.png')}}" alt=""></a></li>
+                                        <li><a href="#"><img src="{{ asset('FrontOffice/img/gallery/instagram4.png')}}" alt=""></a></li>
+                                        <li><a href="#"><img src="{{ asset('FrontOffice/img/gallery/instagram5.png')}}" alt=""></a></li>
+                                        <li><a href="#"><img src="{{ asset('FrontOffice/img/gallery/instagram6.png')}}" alt=""></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -743,37 +749,37 @@
 
 {% endblock %}
 
-    <script src="./FrontOffice/js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="{{ asset('./FrontOffice/js/vendor/modernizr-3.5.0.min.js')}}"></script>
     <!-- Jquery, Popper, Bootstrap -->
-    <script src="./FrontOffice/js/vendor/jquery-1.12.4.min.js"></script>
-    <script src="./FrontOffice/js/popper.min.js"></script>
-    <script src="./FrontOffice/js/bootstrap.min.js"></script>
+    <script src="{{ asset('./FrontOffice/js/vendor/jquery-1.12.4.min.js')}}"></script>
+    <script src="{{ asset('./FrontOffice/js/popper.min.js')}}"></script>
+    <script src="{{ asset('./FrontOffice/js/bootstrap.min.js')}}"></script>
     <!-- Jquery Mobile Menu -->
-    <script src="./FrontOffice/js/jquery.slicknav.min.js"></script>
+    <script src="{{ asset('./FrontOffice/js/jquery.slicknav.min.js')}}"></script>
 
     <!-- Jquery Slick , Owl-Carousel Plugins -->
-    <script src="./FrontOffice/js/owl.carousel.min.js"></script>
-    <script src="./FrontOffice/js/slick.min.js"></script>
+    <script src="{{ asset('./FrontOffice/js/owl.carousel.min.js')}}"></script>
+    <script src="{{ asset('./FrontOffice/js/slick.min.js')}}"></script>
     <!-- One Page, Animated-HeadLin -->
-    <script src="./FrontOffice/js/wow.min.js"></script>
-    <script src="./FrontOffice/js/animated.headline.js"></script>
-    <script src="./FrontOffice/js/jquery.magnific-popup.js"></script>
+    <script src="{{ asset('./FrontOffice/js/wow.min.js')}}"></script>
+    <script src="{{ asset('./FrontOffice/js/animated.headline.js')}}"></script>
+    <script src="{{ asset('./FrontOffice/js/jquery.magnific-popup.js')}}"></script>
 
     <!-- Date Picker -->
-    <script src="./FrontOffice/js/gijgo.min.js"></script>
+    <script src="{{ asset('./FrontOffice/js/gijgo.min.js')}}"></script>
     <!-- Nice-select, sticky -->
-    <script src="./FrontOffice/js/jquery.nice-select.min.js"></script>
-    <script src="./FrontOffice/js/jquery.sticky.js"></script>
+    <script src="{{ asset('./FrontOffice/js/jquery.nice-select.min.js')}}"></script>
+    <script src="./FrontOffice/js/jquery.sticky.js')}}"></script>
     
     <!-- contact js -->
-    <script src="./FrontOffice/js/contact.js"></script>
-    <script src="./FrontOffice/js/jquery.form.js"></script>
-    <script src="./FrontOffice/js/jquery.validate.min.js"></script>
-    <script src="./FrontOffice/js/mail-script.js"></script>
-    <script src="./FrontOffice/js/jquery.ajaxchimp.min.js"></script>
+    <script src="{{ asset('./FrontOffice/js/contact.js')}}"></script>
+    <script src="{{ asset('./FrontOffice/js/jquery.form.js')}}"></script>
+    <script src="{{ asset('./FrontOffice/js/jquery.validate.min.js')}}"></script>
+    <script src="{{ asset('./FrontOffice/js/mail-script.js')}}"></script>
+    <script src="{{ asset('./FrontOffice/js/jquery.ajaxchimp.min.js')}}"></script>
     
     <!-- Jquery Plugins, main Jquery -->	
-    <script src="./FrontOffice/js/plugins.js"></script>
-    <script src="./FrontOffice/js/main.js"></script>
+    <script src="{{ asset('./FrontOffice/js/plugins.js')}}"></script>
+    <script src="{{ asset('./FrontOffice/js/main.js')}}"></script>
     </body>
 </html>
