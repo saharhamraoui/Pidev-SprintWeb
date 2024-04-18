@@ -1,0 +1,155 @@
+{% extends 'baseBack.html.twig' %}
+{% block stylesheet %}
+<style>
+ .tablee {
+            width: 100%;
+            margin-bottom: 1rem;
+            color: #212529;
+            border-collapse: collapse;
+        }
+
+        .tablee th,
+        .tablee td {
+            padding: 0.75rem;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .tablee th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #dee2e6;
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .tablee td {
+            background-color: #fff;
+        }
+        
+
+        .buttonn {
+            display: inline-block;
+            font-weight: 400;
+            color: #fff;
+            text-align: center;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-color: #00695f;
+            border: 1px solid white;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+            border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            text-decoration: none;
+        }
+        
+
+        .btn2 {
+            display: inline-block;
+            font-weight: 400;
+            color: black;
+            text-align: center;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-color: #28a745;
+            border: 1px solid white;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+            border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            text-decoration: none;
+        }
+        
+
+        .buttonn:hover {
+            color: #fff;
+            background-color: ##00695f;
+            border-color: ##00695f;
+            text-decoration: none;
+        }
+
+        .btn2:hover {
+            color: #fff;
+            background-color: ##28a745;
+            border-color: ##28a745;
+            text-decoration: none;
+        }
+
+        .inline-inputs {
+            display: flex;
+            align-items: center;
+        }
+
+        .inline-inputs input {
+            flex: 1; /* This ensures both input fields take up equal width */
+            margin-right: 10px; /* Adjust the spacing between the input fields */
+        }
+
+        .inline-inputs label {
+            margin-bottom: 5px; /* Add some space below the label */
+        }
+</style>
+{% endblock %}
+{% block body %}
+    <h1>User index</h1>
+ <a href="{{ path('app_user_new') }}" class="btn2 btn-success2">Create New User</a>
+      <a href="{{ path('app_user_pdf') }}" class="btn2 btn-success2">PDF</a>
+      <a href="{{ path('statistiques') }}" class="btn2 btn-success2">Statistic By place</a>
+      <a href="{{ path('statistiquesRoles') }}" class="btn2 btn-success2">Statistics by Roles</a>
+      <a href="{{ path('excel') }}" class="btn2 btn-success2">Excel</a>
+
+    <table class="tablee">
+        <thead>
+            <tr>
+                <th>Iduser</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Role</th>
+                <th>Number</th>
+                <th>Rating</th>
+                <th>Password</th>
+                <th>Picture</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.iduser }}</td>
+                <td>{{ user.firstname }}</td>
+                <td>{{ user.lastname }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.address }}</td>
+                <td>{{ user.role }}</td>
+                <td>{{ user.number }}</td>
+                <td>{{ user.rating }}</td>
+                <td>{{ user.password|slice(0, 8) }} ..</td>              
+                <td><img src="{{ asset('uploads/' ~ user.picture) }}" alt="" height="100" width="100" class=""><td>
+                    <a href="{{ path('app_user_showw', {'iduser': user.iduser}) }}" class="buttonn">show</a>
+                    <a href="{{ path('app_user_edit', {'iduser': user.iduser}) }}" class="buttonn">edit</a>
+                    <a href="{{ path('load_user_content', {'iduser': user.iduser}) }}" class="buttonn">QR code</a>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_user_new') }}" class="buttonn">Create new</a>
+{% endblock %}
