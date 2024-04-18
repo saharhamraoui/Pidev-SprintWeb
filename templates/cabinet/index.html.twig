@@ -1,0 +1,66 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Cabinet index{% endblock %}
+
+{% block body %}
+    <br>
+    <h4><b>Liste des Cabinets</b></h4>
+    <br>
+     <input type="text" class="form-control" id="searchInput" placeholder="Search&hellip;"> 
+    <br><br>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Adresse</th>
+                <th>Codepostal</th>
+                <th>Adressemail</th>
+                <th>Medecin</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for cabinet in cabinets %}
+            <tr>
+                <td>{{ cabinet.nom }}</td>
+                <td>{{ cabinet.adresse }}</td>
+                <td>{{ cabinet.codepostal }}</td>
+                <td>{{ cabinet.adressemail }}</td>
+                <td>{{ cabinet.idMedecin.nom }}</td>
+                <td>
+                    <button class="btn"><a style="color:#000;" href="{{ path('app_cabinet_show', {'id': cabinet.id}) }}">show</a></button>
+                    <button class="btn"><a style="color:#000;" href="{{ path('app_cabinet_edit', {'id': cabinet.id}) }}">edit</a></button>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <button class="btn"><a style="color:#000;" href="{{ path('app_cabinet_new') }}">Ajouter un Cabinet</a></button>
+
+    
+    <script>
+        function filterTable() {
+            const filter = document.getElementById('searchInput').value.toUpperCase();
+            const rows = document.querySelectorAll('table tr');
+            for (let i = 1; i < rows.length; i++) {
+                const cols = rows[i].querySelectorAll('td');
+                let visible = false;
+                for (let j = 0; j < cols.length; j++) {
+                    const cell = cols[j];
+                    if (cell.innerText.toUpperCase().indexOf(filter) > -1) {
+                        visible = true;
+                        break;
+                    }
+                }
+                rows[i].style.display = visible ? '' : 'none';
+            }
+        }
+        document.getElementById('searchInput').addEventListener('keyup', filterTable);
+	</script>
+{% endblock %}
