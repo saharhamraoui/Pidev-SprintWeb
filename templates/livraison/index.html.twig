@@ -1,0 +1,35 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block body %}
+	<h1>Livraison index</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Idlivraison</th>
+				<th>Idcommande</th>
+				<th>Statut</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for livraison in livraisons %}
+				<tr>
+					<td>{{ livraison.idlivraison }}</td>
+					<td>{{ livraison.idcommande }}</td>
+					<td>{{ livraison.statut }}</td>
+					<td>
+						<a href="{{ path('app_livraison_show', {'idlivraison': livraison.idlivraison}) }}">show</a>
+						<a href="{{ path('app_livraison_edit', {'idlivraison': livraison.idlivraison}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="4">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_livraison_new') }}">Create new</a>
+{% endblock %}

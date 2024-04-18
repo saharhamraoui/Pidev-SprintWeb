@@ -1,0 +1,44 @@
+{% extends "baseBack.html.twig" %}
+<head>
+	{% block style %}
+		<link rel="stylesheet" href="{{ asset('FrontOffice/css/bootstrap.commandeshow.css')}}">
+
+	{% endblock %}
+</head>
+{% block body %}
+	<h1>Commande index</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Idcommande</th>
+				<th>Datecommande</th>
+				<th>Adresselivraison</th>
+				<th>Montanttotalcommande</th>
+				<th>Plats</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for commande in commandes %}
+				<tr>
+					<td>{{ commande.idcommande }}</td>
+					<td>{{ commande.datecommande ? commande.datecommande|date('Y-m-d H:i:s') : '' }}</td>
+					<td>{{ commande.adresselivraison }}</td>
+					<td>{{ commande.montanttotalcommande }}</td>
+					<td>{{ commande.plats }}</td>
+					<td>
+						<a href="{{ path('app_commande_show', {'idcommande': commande.idcommande}) }}">show</a>
+						<a href="{{ path('app_commande_edit', {'idcommande': commande.idcommande}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="6">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_commande_new') }}">Create new</a>
+{% endblock %}

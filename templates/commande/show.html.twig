@@ -1,0 +1,37 @@
+{% extends "baseBack.html.twig" %}
+
+
+{% block body %}
+	<h1>Commande</h1>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Idcommande</th>
+				<td>{{ commande.idcommande }}</td>
+			</tr>
+			<tr>
+				<th>Datecommande</th>
+				<td>{{ commande.datecommande ? commande.datecommande|date('Y-m-d H:i:s') : '' }}</td>
+			</tr>
+			<tr>
+				<th>Adresselivraison</th>
+				<td>{{ commande.adresselivraison }}</td>
+			</tr>
+			<tr>
+				<th>Montanttotalcommande</th>
+				<td>{{ commande.montanttotalcommande }}</td>
+			</tr>
+			<tr>
+				<th>Plats</th>
+				<td>{{ commande.plats }}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_commande_index') }}">back to list</a>
+
+	<a href="{{ path('app_commande_edit', {'idcommande': commande.idcommande}) }}">edit</a>
+
+	{{ include('commande/_delete_form.html.twig') }}
+{% endblock %}
