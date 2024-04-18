@@ -36,7 +36,7 @@ class Cabinet
     private ?string $adressemail;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
-    #[ORM\JoinColumn(name: "id_medecin", referencedColumnName: "idUser")]
+    #[ORM\JoinColumn(name: "id_medecin", referencedColumnName: "iduser")]
     private $idMedecin;
 
     public function getId(): ?int

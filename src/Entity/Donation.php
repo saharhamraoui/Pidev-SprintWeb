@@ -7,7 +7,7 @@ use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: DonationRepository::class)]
 
@@ -25,17 +25,17 @@ class Donation
 
 
 
-    #[ORM\Column(type: "date", nullable: true)]
+    #[ORM\Column(nullable: true)]
     private ?DateTime $history;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
-    #[ORM\JoinColumn(name: "idDonator", referencedColumnName: "idUser")]
-    private ?int $iddonator;
+    #[ORM\JoinColumn(name: "iddonator", referencedColumnName: "iduser")]
+    private ?User $iddonator;
 
 
     #[ORM\ManyToOne(targetEntity: Campaign::class)]
-    #[ORM\JoinColumn(name: "idCamp", referencedColumnName: "idCamp")]
-     private ?int $idcamp; 
+    #[ORM\JoinColumn(name: "idcamp", referencedColumnName: "idcamp")]
+     private ?Campaign $idcamp; 
 
 
      

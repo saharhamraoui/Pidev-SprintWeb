@@ -38,6 +38,9 @@
             "./migrations/.gitignore"
         ]
     },
+    "endroid/qr-code-bundle": {
+        "version": "5.0.1"
+    },
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {
@@ -295,6 +298,9 @@
         "files": [
             "./config/packages/messenger.yaml"
         ]
+    },
+    "symfonycasts/verify-email-bundle": {
+        "version": "v1.17.0"
     },
     "twig/extra-bundle": {
         "version": "v3.8.0"

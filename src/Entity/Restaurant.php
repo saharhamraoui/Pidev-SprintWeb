@@ -30,8 +30,8 @@ class Restaurant
     private $imagepath;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
-    #[ORM\JoinColumn(name: "userId", referencedColumnName: "idUser")]
-    private $userid;
+    #[ORM\JoinColumn(name: "userid", referencedColumnName: "iduser")]
+    private ?User $userid=null;
 
     public function getRestaurantid(): ?int
     {

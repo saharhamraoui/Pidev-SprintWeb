@@ -29,8 +29,8 @@ class Livraison
     private ?string $statut;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
-    #[ORM\JoinColumn(name: "idLivreur", referencedColumnName: "idUser")]
-    private $idlivreur;
+    #[ORM\JoinColumn(name: "idlivreur", referencedColumnName: "iduser")]
+    private ?User $idlivreur;
 
     public function getIdlivraison(): ?int
     {

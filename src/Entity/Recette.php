@@ -69,7 +69,7 @@ class Recette
 
 
     #[ORM\ManyToOne(User::class)]
-    #[ORM\JoinColumn(name: "idUser", referencedColumnName: "idUser")]
+    #[ORM\JoinColumn(name: "iduser", referencedColumnName: "iduser")]
     #[Assert\NotBlank(message:'cant be null')]
     private $iduser;
 

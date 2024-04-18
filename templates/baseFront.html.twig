@@ -68,6 +68,17 @@
                                                 <li><a href="">Donations</a></li>
 
                                                 <li><a href="contact.html">About</a></li>
+                                                 <div class="header-right-btn f-right d-none d-lg-block ml-20">
+                                                 
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.userIdentifier }}, 
+            <br>
+        </div>
+    {% endif %}
+    
+                                                 <a href="/{{app.user ? 'logout' : 'login' }}" class="border-btn header-btn">{{app.user ? ' log out  ': 'Sign In' }}</a>
+                                                </div>
                                             </ul>
                                         </nav>
                                     </div>

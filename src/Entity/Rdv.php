@@ -44,7 +44,7 @@ class Rdv
     private ?DateTime $daterdv;
 
     #[ORM\ManyToOne(targetEntity: Cabinet::class)]
-    #[ORM\JoinColumn(name: "id_cabinet", referencedColumnName: "id")]
+    #[ORM\JoinColumn(name: "idCabinet", referencedColumnName: "id")]
     private $idCabinet;
 
     public function getId(): ?int

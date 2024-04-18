@@ -6,7 +6,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CommandeRepository;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Constraints\DateTime;
+use DateTime;
 
 
 
@@ -20,9 +20,13 @@ class Commande
     private $idcommande;
 
     
-    #[Assert\NotBlank(message: ' the date cant be null ')]
-    #[ORM\Column(type: "date")]
-
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[Assert\NotBlank(message: "La date de reclamation doit être remplie ")]
+    #[Assert\Range(
+        min: "2024-04-01",
+        max: "2025-12-31",
+        notInRangeMessage: "La date doit être en 2023"
+    )]
     private ?DateTime $datecommande;
 
     #[Assert\NotBlank(message: ' the address cant be null ')]
@@ -42,12 +46,12 @@ class Commande
     
 
     #[ORM\ManyToOne(targetEntity: "Restaurant")]
-    #[ORM\JoinColumn(name: "restaurantId", referencedColumnName: "restaurantId")]
-    private $restaurantid;
+    #[ORM\JoinColumn(name: "restaurantid", referencedColumnName: "restaurantid")]
+    private ?Restaurant $restaurantid;
     
     #[ORM\ManyToOne(targetEntity: "User")]
-    #[ORM\JoinColumn(name: "idUser", referencedColumnName: "idUser")]
-    private $iduser;
+    #[ORM\JoinColumn(name: "iduser", referencedColumnName: "iduser")]
+    private ?User $iduser;
 
     public function getIdcommande(): ?int
     {

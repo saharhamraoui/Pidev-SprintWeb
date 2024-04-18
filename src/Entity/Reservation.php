@@ -23,12 +23,12 @@ class Reservation
     private $numberofpersons;
 
     #[ORM\ManyToOne(targetEntity: Restauranttable::class)]
-    #[ORM\JoinColumn(name: "tableId", referencedColumnName: "tableId")]
+    #[ORM\JoinColumn(name: "tableid", referencedColumnName: "tableid")]
     private $tableid;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
-    #[ORM\JoinColumn(name: "userId", referencedColumnName: "idUser")]
-    private $userid;
+    #[ORM\JoinColumn(name: "userid", referencedColumnName: "iduser")]
+    private ?User $userid;
 
     public function getReservationid(): ?int
     {

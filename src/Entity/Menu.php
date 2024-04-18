@@ -43,7 +43,7 @@ class Menu
     private ?string $imagep;
 
     #[ORM\ManyToOne(targetEntity: Restaurant::class)]
-    #[ORM\JoinColumn(name: "restaurantId", referencedColumnName: "restaurantId")]
+    #[ORM\JoinColumn(name: "restaurantid", referencedColumnName: "restaurantid")]
     private $restaurantid;
 
     public function getIdp(): ?int

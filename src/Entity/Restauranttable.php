@@ -20,8 +20,8 @@ class Restauranttable
     private $isoccupied;
 
     #[ORM\ManyToOne(targetEntity: Restaurant::class)]
-    #[ORM\JoinColumn(name: "restaurantId", referencedColumnName: "restaurantId")]
-    private $restaurantid;    
+    #[ORM\JoinColumn(name: "restaurantid", referencedColumnName: "restaurantid")]
+    private ?User $restaurantid;    
 
     public function getTableid(): ?int
     {
