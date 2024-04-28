@@ -1,0 +1,119 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        #lieuxChartContainer {
+            margin-top: 20px;
+            margin-bottom: 20px; /* Add margin at the bottom to separate from the table */
+            text-align: center;
+        }
+
+        #lieuxTableContainer {
+            margin-top: 20px;
+            margin-bottom: 20px; /* Add margin at the top and bottom to separate from other elements */
+        }
+
+        .tablee {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        .tablee th, .table td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tablee th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+
+        .tablee tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .tablee tbody tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+{% endblock %}
+
+
+{% block body %}
+    <h1>Statistiques sur les Utilisateurs par Lieu</h1>
+
+    <div id="lieuxChartContainer" style="width: 80vw; height: 60vh;">
+        <canvas id="lieuxChart"></canvas>
+    </div>
+
+    <div id="lieuxTableContainer">
+        <h2>Statistiques détaillées par lieu</h2>
+        <table class="tablee">
+            <thead>
+                <tr>
+                    <th>Lieu</th>
+                    <th>Nombre d'utilisateurs</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stat in statsLocation %}
+                    <tr>
+                        <td>{{ stat.location }}</td>
+                        <td>{{ stat.userCount }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var locationData = {{ statsLocation|json_encode|raw }};
+
+            var locationChart = new Chart(document.getElementById('lieuxChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(locationData),
+                    datasets: [
+                        {
+                            label: 'Nombre d\'utilisateurs',
+                            data: Object.values(locationData).map(stats => stats.userCount),
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                                'rgba(255, 205, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(201, 203, 207, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(255, 159, 64)',
+                                'rgb(255, 205, 86)',
+                                'rgb(75, 192, 192)',
+                                'rgb(54, 162, 235)',
+                                'rgb(153, 102, 255)',
+                                'rgb(201, 203, 207)'
+                            ],
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                stepSize: 1 // Définir l'étape à 1
+                            }
+                        }]
+                    }
+                }
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+{% endblock %}

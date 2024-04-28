@@ -1,0 +1,35 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block body %}
+
+<br /><br /><br /><br /><br /><br /><br /><br>
+    <h1>History of Donations </h1>
+    <table class="table">
+            <tr>
+                <th>Donator Name</th>
+                <th>Campaign Name</th>
+                <th>Donation Value</th>
+                <th>History</th>
+                 <th>Donator Number</th>
+            </tr>
+        {% for donation in donations %}
+            <tr>
+                <td>{{ donation.iddonator.firstname }}</td>
+                <td>{{ donation.idcamp.titre }}</td>
+                <td>{{ donation.valeurdon }}</td>
+                <td>{{ donation.history ? donation.history|date('Y-m-d') : '' }}</td>
+                 <td>{{ donation.iddonator.number }}</td>
+                <td><td>
+                    <a href="{{ path('app_donation_showf', {'iddon': donation.iddon}) }}"class="btn btn-info-custom btn-sm">Show</a></td>
+                    
+                    <td>   {{ include('donation/_delete_form.html.twig') }}</td>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <a href="{{ path('app_donate_index') }}"class="btn btn-info-custom btn-sm">Make a new donation</a>
+{% endblock %}

@@ -45,4 +45,34 @@ class CampaignRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+public function findByCombinedSearch(string $title, string $name, string $type, string $goal, string $number): array
+{
+    $queryBuilder = $this->createQueryBuilder('e');
+
+    if ($title) {
+        $queryBuilder->andWhere('e.titre LIKE :title')
+            ->setParameter('title', '%' . $title . '%');
+    }
+
+    if ($name) {
+        $queryBuilder->andWhere('e.associationName LIKE :name')
+            ->setParameter('name', '%' . $name . '%');
+    }
+    if ($number) {
+        $queryBuilder->andWhere('e.number LIKE :number')
+            ->setParameter('number', '%' . $number . '%');
+    }
+    if ($type) {
+        $queryBuilder->andWhere('e.campaignType LIKE :type')
+            ->setParameter('type', '%' . $type . '%');
+    }
+    if ($goal) {
+        $queryBuilder->andWhere('e.goal LIKE :goal')
+            ->setParameter('goal', '%' . $goal . '%');
+    }
+
+    return $queryBuilder->getQuery()->getResult();
+}
+
+
 }

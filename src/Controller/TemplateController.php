@@ -9,15 +9,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class TemplateController extends AbstractController
 {
 
-    #[Route('/templateDeconnected', name: 'app_template')]
+    #[Route('/templateDeconnected', name: 'app_template_Disconnected')]
     public function index2(): Response
     {
-        return $this->render('test.html.twig', [
+        return $this->render('baseFrontDeconnected.html.twig', [
             'controller_name' => 'TemplateController',
         ]);
     }
 
-    #[Route('/templateConnected', name: 'app_template')]
+    #[Route('/templateConnected', name: 'app_template_Connected')]
     public function index(): Response
     {
         return $this->render('baseFront.html.twig', [
@@ -25,10 +25,10 @@ class TemplateController extends AbstractController
         ]);
     }
 
-    #[Route('/baseBack', name: 'app_template')]
+    #[Route('/baseBack', name: 'app_template_back')]
     public function callBack(): Response
     {
-        return $this->render('template/test.html.twig', [
+        return $this->render('baseBack.html.twig', [
             'controller_name' => 'TemplateController',
         ]);
     }

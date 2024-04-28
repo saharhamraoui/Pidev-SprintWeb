@@ -7,7 +7,7 @@ use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: DonationRepository::class)]
 
@@ -19,23 +19,27 @@ class Donation
     private ?int $iddon;
     
 
-    #[Assert\NotBlank(message: ' the value cant be null ')]
     #[ORM\Column(type: "integer")]
-    private ?int $valeurdon;
+#[Assert\NotBlank(message: 'the value cant be null')]
+#[Assert\Regex(
+    pattern: '/^\d+$/',
+    message: 'The value must be a valid number.'
+)]
+private ?int $valeurdon;
 
 
 
-    #[ORM\Column(type: "date", nullable: true)]
+    #[ORM\Column(nullable: true)]
     private ?DateTime $history;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
-    #[ORM\JoinColumn(name: "idDonator", referencedColumnName: "idUser")]
-    private ?int $iddonator;
+    #[ORM\JoinColumn(name: "iddonator", referencedColumnName: "iduser")]
+    private ?User $iddonator;
 
 
     #[ORM\ManyToOne(targetEntity: Campaign::class)]
-    #[ORM\JoinColumn(name: "idCamp", referencedColumnName: "idCamp")]
-     private ?int $idcamp; 
+    #[ORM\JoinColumn(name: "idcamp", referencedColumnName: "idcamp")]
+     private ?Campaign $idcamp; 
 
 
      

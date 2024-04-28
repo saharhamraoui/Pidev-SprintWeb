@@ -1,0 +1,110 @@
+{% extends 'baseBack.html.twig' %}
+
+
+{% block body %}
+<style>
+    .table {
+        border-width: 5px;
+        font-size: 10px;
+        margin-bottom: 30px;
+    }
+
+    .table td,
+    .table th {
+        padding: 8px;
+          font-size: 20px;
+    }
+
+    .table-striped tbody tr:nth-child(odd) {
+        background-color: #f9f9f9;
+    }
+
+    .table-striped tbody tr:hover {
+        background-color: #ddd;
+    }
+
+    .table-responsive {
+        display: table;
+    }
+
+    .table-responsive > .table-bordered {
+        border: none;
+    }
+
+    .table-responsive > .table-bordered > thead,
+    .table-responsive > .table-bordered > tbody,
+    .table-responsive > .table-bordered > tfoot {
+        border-top: 1px solid #ddd;
+    }
+
+    .text-center {
+        vertical-align: middle;
+    }
+
+    .btn-danger-custom {
+        background-color: #dc3545;
+        border-color: #dc3545;
+        font-size: 20px;
+        padding: 6px 6px;
+        margin:3px;
+    }
+
+    .btn-success-custom {
+        background-color: #28a745;
+        border-color: #28a745;
+        font-size: 20px;
+        padding: 6px 6px;
+    }
+
+    .btn-info-custom {
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+        font-size: 20px;
+        padding: 6px 6px;
+    }
+</style>
+</style>
+    <h1>Campaign List</h1>
+    <table class="table">
+        <thead>
+            <tr >
+                <th >Title</th>
+            <th>Association Name</th>
+            <th>Campaign Type</th>
+            <th>Goal</th>
+            <th>Total Donation</th>
+            <th>Number</th>
+            <th>Description</th>
+            <th>image</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for campaign in campaigns %}
+            <tr>
+                 <td>{{ campaign.titre }}</td>
+                <td>{{ campaign.associationname }}</td>
+                <td>{{ campaign.campaigntype }}</td>
+                <td>{{ campaign.goal }}</td>
+                <td>{{ campaign.current }}</td>
+                <td>{{ campaign.number }}</td>
+                <td>{{ campaign.description }}</td>
+                <td> <img src="{{ asset('uploads/' ~ campaign.image) }}" alt="Campaign image" height="200" width="200" >
+                <td class="text-center">
+                <div class="row">
+                <div class="col">
+                        <a href="{{ path('app_campaign_show', {'idcamp': campaign.idcamp}) }}" class="btn btn-info-custom btn-sm">Show</a>
+                    </div>
+                    <div class="col">
+                        <a href="{{ path('app_campaign_edit', {'idcamp': campaign.idcamp}) }}" class="btn btn-success-custom btn-sm">Update</a>
+                    </div>
+                    <div class="col">
+                       {{ include('campaign/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('app_campaign_new') }}"class="btn btn-info-custom btn-sm">Create new</a>
+{% endblock %}

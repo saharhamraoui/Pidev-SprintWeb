@@ -1,0 +1,29 @@
+{% extends 'user/SignInSignUp.html.twig' %}
+{% block title %}Register{% endblock %}
+
+{% block registration %}
+
+    {{ form_start(registrationForm) }}
+       <h1>Create Account</h1>
+        <div class="inline-inputs">
+			{{ form_widget(registrationForm.firstname ,{'attr': {'placeholder': 'First Name', 'class': 'my-input'}}) }}
+            {{ form_widget(registrationForm.lastname ,{'attr': {'placeholder': 'Last Name', 'class': 'my-input'}}) }}
+        </div>
+			{{ form_widget(registrationForm.email ,{'attr': {'placeholder': 'your email', 'class': 'my-input'}}) }}
+         <div class="inline-inputs">
+			{{ form_widget(registrationForm.address ,{'attr': {'placeholder': 'your Address', 'class': 'my-input'}}) }}
+            {{ form_widget(registrationForm.number ,{'attr': {'placeholder': 'Your phone number', 'class': 'my-input'}}) }}
+        </div>
+        <div class="inline-inputs">
+           {{ form_widget(registrationForm.picture)}}
+
+                    </div>
+
+			{{ form_widget(registrationForm.password ,{'attr': {'placeholder': 'Password', 'class': 'my-input'}}) }}
+        <div class="inline-inputs">
+             <label> agree to our terms   </label>
+            {{ form_widget(registrationForm.agreeTerms ) }}
+        </div>
+        <button type="submit" class="btn">Register</button>
+    {{ form_end(registrationForm) }}
+{% endblock %}

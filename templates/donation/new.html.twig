@@ -1,0 +1,93 @@
+{% extends 'baseBack.html.twig' %}
+
+
+{% block body %}
+<style>
+    .table {
+        border-width: 5px;
+        font-size: 10px;
+        margin-bottom: 30px;
+    }
+
+    .table td,
+    .table th {
+        padding: 8px;
+          font-size: 20px;
+    }
+
+    .table-striped tbody tr:nth-child(odd) {
+        background-color: #f9f9f9;
+    }
+
+    .table-striped tbody tr:hover {
+        background-color: #ddd;
+    }
+
+    .table-responsive {
+        display: table;
+    }
+
+    .table-responsive > .table-bordered {
+        border: none;
+    }
+
+    .table-responsive > .table-bordered > thead,
+    .table-responsive > .table-bordered > tbody,
+    .table-responsive > .table-bordered > tfoot {
+        border-top: 1px solid #ddd;
+    }
+
+    .text-center {
+        vertical-align: middle;
+    }
+
+    .btn-danger-custom {
+        background-color: #dc3545;
+        border-color: #dc3545;
+        font-size: 20px;
+        padding: 6px 6px;
+        margin:3px;
+    }
+
+    .btn-success-custom {
+        background-color: #28a745;
+        border-color: #28a745;
+        font-size: 20px;
+        padding: 6px 6px;
+    }
+
+    .btn-info-custom {
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+        font-size: 20px;
+        padding: 6px 6px;
+    }
+</style>
+</style>
+    <h1>Create new Donation</h1>
+       <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                        <div class="mb-3">
+                            {{ form_row(form.valeurdon, {'attr': {'class': 'form-control'}, 'id': 'Donation Value'}) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(form.idcamp, {'attr': {'class': 'form-control'}, 'id': 'Campaign Name'}) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(form.iddonator, {'attr': {'class': 'form-control'}, 'id': 'Donator Name'}) }}
+                        </div>
+                    <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+                 <a href="{{ path('app_donation_index') }}"class="btn btn-info-custom btn-sm">back to list</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -30,7 +30,7 @@ class Ingredients
     private ?string $amount;
 
     #[ORM\ManyToOne(targetEntity: Recette::class)]
-    #[ORM\JoinColumn(name: "idRec", referencedColumnName: "idRec")]
+    #[ORM\JoinColumn(name: "idrec", referencedColumnName: "idrec")]
     private $idrec;
 
     public function getIding(): ?int

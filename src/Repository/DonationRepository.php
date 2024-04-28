@@ -45,4 +45,30 @@ class DonationRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+public function findByCombinedSearch(string $donator, string $campaign,int $number,int $value): array
+    {
+        $queryBuilder = $this->createQueryBuilder('e');
+
+        if ($donator) {
+            $queryBuilder->andWhere('e.iddonator.firstname LIKE :donator')
+                ->setParameter('donator', '%' . $donator . '%');
+        }
+
+        if ($campaign) {
+            $queryBuilder->andWhere('e.idcamp.titre LIKE :campaign')
+                ->setParameter('campaign', '%' . $campaign . '%');
+        }
+        if ($number) {
+            $queryBuilder->andWhere('e.iddonator.number LIKE :number')
+                ->setParameter('number', '%' . $number . '%');
+        }
+        if ($value) {
+            $queryBuilder->andWhere('e.valeurdon LIKE :value')
+                ->setParameter('value', '%' . $value . '%');
+        }
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
 }
+

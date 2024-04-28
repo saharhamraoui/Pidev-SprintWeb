@@ -1,0 +1,85 @@
+{% extends 'baseBack.html.twig' %}
+{% block body %}
+<style>
+    .table {
+        border-width: 5px;
+        font-size: 10px;
+        margin-bottom: 30px;
+    }
+
+    .table td,
+    .table th {
+        padding: 8px;
+          font-size: 20px;
+    }
+
+    .table-striped tbody tr:nth-child(odd) {
+        background-color: #f9f9f9;
+    }
+
+    .table-striped tbody tr:hover {
+        background-color: #ddd;
+    }
+
+    .table-responsive {
+        display: table;
+    }
+
+    .table-responsive > .table-bordered {
+        border: none;
+    }
+
+    .table-responsive > .table-bordered > thead,
+    .table-responsive > .table-bordered > tbody,
+    .table-responsive > .table-bordered > tfoot {
+        border-top: 1px solid #ddd;
+    }
+
+    .text-center {
+        vertical-align: middle;
+    }
+
+    .btn-danger-custom {
+        background-color: #dc3545;
+        border-color: #dc3545;
+        font-size: 20px;
+        padding: 6px 6px;
+        margin:3px;
+    }
+
+    .btn-success-custom {
+        background-color: #28a745;
+        border-color: #28a745;
+        font-size: 20px;
+        padding: 6px 6px;
+    }
+
+    .btn-info-custom {
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+        font-size: 20px;
+        padding: 6px 6px;
+    }
+</style>
+</style>
+    <h1>Donation</h1>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Iddon</th>
+                <td>{{ donation.iddon }}</td>
+            </tr>
+            <tr>
+                <th>Valeurdon</th>
+                <td>{{ donation.valeurdon }}</td>
+            </tr>
+            <tr>
+                <th>History</th>
+                <td>{{ donation.history ? donation.history|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="{{ path('app_donation_index') }}"class="btn btn-info-custom btn-sm">back to list</a>
+    <a href="{{ path('app_donation_edit', {'iddon': donation.iddon}) }}"class="btn btn-success-custom btn-sm">edit</a>
+    {{ include('donation/_delete_form.html.twig') }}
+{% endblock %}

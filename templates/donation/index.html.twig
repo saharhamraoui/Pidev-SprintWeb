@@ -1,0 +1,102 @@
+{% extends 'baseBack.html.twig' %}
+
+
+{% block body %}
+<style>
+    .table {
+        border-width: 5px;
+        font-size: 10px;
+        margin-bottom: 30px;
+    }
+
+    .table td{
+        padding: 8px;
+          font-size: 20px;
+    }
+
+    .table th {
+        padding: 8px;
+          font-size: 20px;
+          font-weight: bold;
+    }
+
+    .table-striped tbody tr:nth-child(odd) {
+        background-color: #f9f9f9;
+    }
+
+    .table-striped tbody tr:hover {
+        background-color: #ddd;
+    }
+
+    .table-responsive {
+        display: table;
+    }
+
+    .table-responsive > .table-bordered {
+        border: none;
+    }
+
+    .table-responsive > .table-bordered > thead,
+    .table-responsive > .table-bordered > tbody,
+    .table-responsive > .table-bordered > tfoot {
+        border-top: 1px solid #ddd;
+    }
+
+    .text-center {
+        vertical-align: middle;
+    }
+
+    .btn-danger-custom {
+        background-color: #dc3545;
+        border-color: #dc3545;
+        font-size: 20px;
+        padding: 6px 6px;
+        margin:3px;
+    }
+
+    .btn-success-custom {
+        background-color: #28a745;
+        border-color: #28a745;
+        font-size: 20px;
+        padding: 6px 6px;
+    }
+
+    .btn-info-custom {
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+        font-size: 20px;
+        padding: 6px 6px;
+    }
+</style>
+    <h1>Donations List</h1>
+
+    <table class="table">
+       
+            <tr>
+                <th>Donator Name</th>
+                <th>Campaign Name</th>
+                <th>Donation Value</th>
+                <th>History</th>
+                 <th>Donator Number</th>
+            </tr>
+        {% for donation in donations %}
+            <tr>
+                <td>{{ donation.iddonator.firstname }}</td>
+                <td>{{ donation.idcamp.titre }}</td>
+                <td>{{ donation.valeurdon }}</td>
+                <td>{{ donation.history ? donation.history|date('Y-m-d') : '' }}</td>
+                 <td>{{ donation.iddonator.number }}</td>
+                <td><td>
+                    <a href="{{ path('app_donation_show', {'iddon': donation.iddon}) }}"class="btn btn-info-custom btn-sm">Show</a></td>
+                    <td> <a href="{{ path('app_donation_edit', {'iddon': donation.iddon}) }}"class="btn btn-success-custom btn-sm">Update</a></td>
+                    <td>   {{ include('donation/_delete_form.html.twig') }}</td>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <a href="{{ path('app_donation_new') }}"class="btn btn-info-custom btn-sm">Make a donation</a>
+{% endblock %}

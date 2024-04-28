@@ -1,0 +1,117 @@
+{% extends 'baseBack.html.twig' %}
+
+
+  {% block stylesheets %}
+<style>
+#roleChartContainer {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#roletableeContainer {
+    margin-top: 20px;
+}
+
+.tablee {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.tablee th,
+.tablee td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.tablee th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.tablee tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1>User Statistics by Role</h1>
+
+   <div id="roleChartContainer" style="width: 80vw; height: 60vh;">
+      <canvas id="roleChart"></canvas>
+    </div>
+
+    <div id="roletableeContainer">
+        <h2>User Counts by Role</h2>
+        <table class="tablee">
+            <thead>
+                <tr>
+                    <th>Role</th>
+                    <th>User Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stat in statsRole %}
+                    <tr>
+                        <td>{{ stat.role }}</td>
+                        <td>{{ stat.userCount }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var roleData = {{ statsRole|json_encode|raw }};
+
+        var roleLabels = Object.keys(roleData).map(String); // Ensure role labels are treated as strings
+
+        var roleChart = new Chart(document.getElementById('roleChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: roleLabels, // Use the role labels
+                datasets: [{
+                    label: 'User Count',
+                    data: Object.values(roleData).map(stat => stat.userCount),
+                  backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 205, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(201, 203, 207, 0.2)'
+          ],borderColor:[
+            'rgb(255, 99, 132)',
+            'rgb(255, 159, 64)',
+            'rgb(255, 205, 86)',
+            'rgb(75, 192, 192)',
+            'rgb(54, 162, 235)',
+            'rgb(153, 102, 255)',
+            'rgb(201, 203, 207)'
+          ],                            borderWidth: 1
+                        }
+                    ]
+                },
+                 options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              stepSize: 1 // Définir l'étape à 1
+            }
+          }]
+        }
+      }
+            });
+        });
+</script>
+
+{% endblock %}
+
+

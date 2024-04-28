@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block container %}
+<div class="fils" style="padding-left: 300px;">
+    <h1>User</h1>
+
+    <table class="table" >
+        <tbody>
+            <tr>
+                <th>First Name</th>
+                <td>{{ user.firstName }}</td>
+            </tr>
+            <tr>
+                <th>Last Name</th>
+                <td>{{ user.lastName }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ user.address }}</td>
+            </tr>
+            <tr>
+                <th>Number</th>
+                <td>{{ user.number }}</td>
+            </tr>
+            <tr>
+                <th>Rating</th>
+                <td>{{ user.rating }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+<div class="qrcode">
+   <img id="qrCodeImage" src="data:image/png;base64,{{ qrCodeImage }}" alt="QR Code" style="width: 250px;" >
+</div>   
+    <a href="{{ path('app_user_index') }}" class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top">Back to list</a>
+
+    <a href="{{ path('app_user_edit', {'idUser': user.id}) }}" class="btn btn-primary shadow-md mr-2">Edit</a>    
+
+</div>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  function downloadTicket() {
+    const ticketElement = document.querySelector('.fils');
+    html2canvas(ticketElement).then(function (canvas) {
+      const imageData = canvas.toDataURL('image/png');
+      const downloadLink = document.createElement('a');
+      downloadLink.href = imageData;
+      downloadLink.download = 'ticket.png';
+      downloadLink.click();
+    });
+  }
+
+  const downloadTicketBtn = document.getElementById('downloadTicketBtn');
+  downloadTicketBtn.addEventListener('click', downloadTicket);
+});
+</script>
+{% endblock %}

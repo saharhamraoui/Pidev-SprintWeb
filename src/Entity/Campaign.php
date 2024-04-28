@@ -20,22 +20,32 @@ class Campaign
 
 
     #[ORM\Column(type: "integer")]
-    #[Assert\NotBlank(message: ' the number cant be null ')]
-    private ?int $number;
+#[Assert\NotBlank(message: 'the number cant be null')]
+#[Assert\Regex(
+    pattern: '/^\d{8}$/',
+    message: 'The number must be exactly 8 digits.'
+)]
+private ?int $number;
 
 
 
-    #[Assert\NotBlank(message: ' the goal cant be null ')]
-    #[ORM\Column(type: "integer")]
-    private ?int $goal;
+#[ORM\Column(type: "integer")]
+#[Assert\NotBlank(message: 'the goal cant be null')]
+#[Assert\Regex(
+    pattern: '/^\d+$/',
+    message: 'The goal must be a valid number.'
+)]
+private ?int $goal;
 
-    #[Assert\NotBlank(message: ' the title cant be null ')]
-    #[Assert\Length(max: 35, maxMessage: 'you cant pass the {{ limit }} character.')]
-    #[ORM\Column(length:35)]
+    #[Assert\NotBlank(message: 'The title can\'t be null')]
+    #[Assert\Length(max: 35, maxMessage: 'You can\'t exceed {{ limit }} characters')]
+    #[Assert\Regex(pattern: "/^[a-zA-Z\s]*$/", message: "The title can only contain letters and spaces")]
+    #[ORM\Column(length: 35)]
     private ?string $titre;
 
     #[Assert\NotBlank(message: ' the association name cant be null ')]
     #[Assert\Length(max: 255, maxMessage: 'you cant pass the {{ limit }} character.')]
+    #[Assert\Regex(pattern: "/^[a-zA-Z\s]*$/", message: "The association name can only contain letters and spaces")]
     #[ORM\Column(length:255)]
     private ?string $associationname;
 
@@ -52,7 +62,7 @@ class Campaign
 
 
 
-    #[ORM\Column(name: "image", type: "blob", length: 65535, nullable: true)]
+    #[ORM\Column(length: 255,nullable:true)]
     private ?string $image;
 
    

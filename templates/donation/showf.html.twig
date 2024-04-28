@@ -1,0 +1,28 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block body %}
+<br /><br /><br /><br /><br /><br /><br /><br>
+    <h1>Donation</h1>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Iddon</th>
+                <td>{{ donation.iddon }}</td>
+            </tr>
+            <tr>
+                <th>Valeurdon</th>
+                <td>{{ donation.valeurdon }}</td>
+            </tr>
+            <tr>
+                <th>History</th>
+                <td>{{ donation.history ? donation.history|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+<br/>
+    <a href="{{ path('app_donation_indexf') }}"class="btn btn-info-custom btn-sm">back to history</a>
+
+<br/><br/>
+    {{ include('donation/_delete_form.html.twig') }}
+    <br/>
+{% endblock %}
