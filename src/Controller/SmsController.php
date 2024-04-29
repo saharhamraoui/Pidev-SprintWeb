@@ -16,7 +16,7 @@ class SmsController extends AbstractController
         $twilioService->sendSMS();
 
 
-        return $this->redirectToRoute('app_template_Connected');
+        return $this->redirectToRoute('app_user_index');
 
     }
 }

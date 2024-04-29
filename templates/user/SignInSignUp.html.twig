@@ -3,9 +3,34 @@
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
-
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 * {
 	box-sizing: border-box;
+}
+
+.facebook-login-link {
+    display: inline-block;
+    background-color: #4267B2; /* Facebook blue */
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+}
+
+.facebook-login-link:hover {
+    background-color: #2a4e8f; /* Darker shade of Facebook blue */
+}
+
+.facebook-icon {
+    width: 20px; /* Adjust the size of the icon */
+    height: 20px; /* Adjust the size of the icon */
+    margin-right: 10px; /* Adjust the spacing between the icon and the text */
+    vertical-align: middle;
+}
+
+.facebook-text {
+    vertical-align: middle;
 }
 
 body {
@@ -181,6 +206,34 @@ input {
 .container.right-panel-active .overlay {
   	transform: translateX(50%);
 }
+.facebook-login-link {
+    display: inline-block;
+    background-color: #4267B2; /* Facebook blue */
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+}
+
+.facebook-login-link:hover {
+    background-color: #2a4e8f; /* Darker shade of Facebook blue */
+}
+
+.facebook-icon {
+    display: inline-block;
+    width: 20px; /* Adjust the size of the icon */
+    height: 20px; /* Adjust the size of the icon */
+    background-image: url('path_to_facebook_icon.png'); /* Replace 'path_to_facebook_icon.png' with the path to your Facebook icon */
+    background-size: cover;
+    margin-right: 10px; /* Adjust the spacing between the icon and the text */
+    vertical-align: middle;
+}
+
+.facebook-text {
+    vertical-align: middle;
+}
+
 
 .overlay-panel {
 	position: absolute;

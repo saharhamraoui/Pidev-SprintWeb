@@ -42,6 +42,7 @@
         }
 </style>
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {{ form_widget(form,{'attr': {'novalidate': 'novalidate'}} )  }}
+    {{ form_errors(form)}}
     <button class="buttonn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

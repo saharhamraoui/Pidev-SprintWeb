@@ -82,14 +82,6 @@ public function indexx(UserRepository $userRepository): Response
     ]);
 }
 
-#[Route('/signin', name: 'signin')]
-public function signin(): Response
-{
-
-    return $this->render('user/signin.html.twig', [
-        
-    ]);
-}
 
 
 #[Route('/generateExcel', name: 'excel')]
@@ -158,12 +150,12 @@ public function roleStats(UserRepository $userRepository): Response
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
+
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findAll(),
         ]);
         }
 
-    #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
    
 
 
@@ -200,8 +192,9 @@ public function roleStats(UserRepository $userRepository): Response
            
 
             }
+            return $this->redirectToRoute('send_sms');
 
-            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+
         }
 
         return $this->renderForm('user/new.html.twig', [

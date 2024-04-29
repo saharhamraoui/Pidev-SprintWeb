@@ -75,9 +75,19 @@
             You are logged in as {{ app.user.userIdentifier }}, 
             <br>
         </div>
+         <a href="/{{app.user ? 'logout' : 'login' }}" class="border-btn header-btn">{{app.user ? ' log out  ': 'Sign In' }}</a>
+
+    {% else %}
+     {% if app.session.get('facebook_authenticated') %}
+       <div class="mb-3">
+            You are logged in as {{ app.session.get('facebook_authenticated') }}, 
+            <br>
+        </div>
+           <a href="/{{app.session.get('facebook_authenticated') ? 'login' : 'logout' }}" class="border-btn header-btn">{{app.user ? ' Sign In   ': 'Log Out' }}</a>
+
+     {% endif %}
     {% endif %}
     
-                                                 <a href="/{{app.user ? 'logout' : 'login' }}" class="border-btn header-btn">{{app.user ? ' log out  ': 'Sign In' }}</a>
                                                 </div>
                                             </ul>
                                         </nav>
