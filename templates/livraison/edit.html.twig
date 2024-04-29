@@ -1,6 +1,65 @@
 {% extends 'baseBack.html.twig' %}
 
 {% block body %}
+<style>
+		/* styles.css */
+
+		/* Appliquez une couleur de fond verte au formulaire */
+		form {
+			background-color: #00796B;
+			padding: 20px;
+			border-radius: 8px;
+		}
+
+		/* Stylez les éléments du formulaire (champs de saisie, boutons, etc.) */
+		input[type="text"],
+		input[type="email"],
+		textarea {
+			background-color: #fff; /* Couleur de fond blanche pour les champs de saisie */
+			border: 1px solid #ccc; /* Bordure grise autour des champs de saisie */
+			padding: 10px;
+			border-radius: 4px;
+			margin-bottom: 10px;
+		}
+
+		/* Stylez le bouton de soumission */
+		input[type="submit"] {
+			background-color: #004F44; /* Couleur de fond plus foncée pour le bouton */
+			color: #fff; /* Texte blanc pour le bouton */
+			border: none;
+			padding: 10px 20px;
+			border-radius: 4px;
+			cursor: pointer;
+			/* Ajoutez une transition fluide pour une animation agréable */
+			transition: background-color 0.3s ease;
+		}
+
+		/* Changez la couleur du bouton au survol */
+		input[type="submit"]:hover {
+			background-color: #00695C;
+		}
+
+		/* Stylez les liens */
+		a {
+			color: #00796B;
+			text-decoration: none;
+			/* Ajoutez une transition fluide pour une animation agréable */
+			transition: color 0.3s ease;
+		}
+
+		/* Changez la couleur du lien au survol */
+		a:hover {
+			color: #005A4F;
+		}
+
+		/* Stylez le titre */
+		h1 {
+			color: #333;
+			font-size: 24px;
+			margin-bottom: 20px;
+		}
+
+	</style>
 	<h1>Edit Livraison</h1>
 
 	{{ include('livraison/_form.html.twig', {'button_label': 'Update'}) }}

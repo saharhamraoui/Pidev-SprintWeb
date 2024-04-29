@@ -1,11 +1,32 @@
 {% extends "baseBack.html.twig" %}
-<head>
-	{% block style %}
-		<link rel="stylesheet" href="{{ asset('FrontOffice/css/bootstrap.commandeshow.css')}}">
 
-	{% endblock %}
-</head>
 {% block body %}
+<style>/* Stylise le tableau */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #00796B;
+    /* Couleur de fond verte */
+    /* Ajoutez d'autres propriétés ici */
+}
+
+/* Stylise les cellules du tableau */
+.table td,
+.table th {
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #FFFFFF;
+    /* Couleur de fond blanche (ou autre couleur de votre choix) */
+    /* Ajoutez d'autres propriétés ici */
+}
+
+/* Stylise les liens */
+a {
+    color: #00796B;
+    /* Couleur verte */
+    text-decoration: none;
+    /* Ajoutez d'autres propriétés ici */
+}</style>
 	<h1>Commande index</h1>
 
 	<table class="table">

@@ -7,7 +7,8 @@ use App\Entity\Restaurant;
 use App\Entity\User;
 use App\Form\CommandeType;
 use App\Form\commandeFrontType;
-
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use App\Repository\CommandeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,12 +19,53 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/commande')]
 class CommandeController extends AbstractController
 {
+
+    #[Route('/mailer', name: 'app_mailer')]
+    public function sendEMail(MailerInterface $mailer): Response
+    {
+        $email = (new Email())
+            ->from('greenmenu2024@outlook.com')
+            ->to('dorsafriahi6@gmail.com')
+            ->subject('Confirmation')
+            ->text('your order has been added successfully.');
+
+
+        $mailer->send($email);
+
+
+        return new Response(
+            'Email sent successfully'
+        );
+    }
+
     #[Route('/TemplateFrontCommande', name: 'app_commande_front')]
     public function frontCommande(): Response
     {
         return $this->render('commandeFront/cart.html.twig', []);
     }
+    #[Route('/CommandeChekOut', name: 'CommandeChekOut', methods: ['GET', 'POST'])]
+    public function newFront(CommandeRepository $repo, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $commande1 = $repo->find(24);
+        $commande = new Commande();
+        $commande->setIduser($commande1->getIduser());
+        $commande->setRestaurantid($commande1->getRestaurantid());
+        $commande->setMontanttotalcommande(500);
+        $form = $this->createForm(commandeFrontType::class, $commande);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($commande);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_commande_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('commandeFront/checkout.html.twig', [
+            'commande' => $commande,
+            'form' => $form,
+        ]);
+    }
 
 
     #[Route('/', name: 'app_commande_index', methods: ['GET'])]
@@ -54,33 +96,7 @@ class CommandeController extends AbstractController
         ]);
     }
 
-    #[Route('/CommandeChekOut', name: 'CommandeChekOut', methods: ['GET', 'POST'])]
-    public function newFront(CommandeRepository $repo, Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $commande1 = $repo->find(24);
-        $commande = new Commande();
-        $commande->setIduser($commande1->getIduser());
-        $commande->setRestaurantid($commande1->getRestaurantid());
-        $commande->setMontanttotalcommande(500);
-        $form = $this->createForm(commandeFrontType::class, $commande);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-
-
-
-
-            $entityManager->persist($commande);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_commande_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('commandeFront/checkout.html.twig', [
-            'commande' => $commande,
-            'form' => $form,
-        ]);
-    }
 
     #[Route('/{idcommande}', name: 'app_commande_show', methods: ['GET'])]
     public function show(Commande $commande): Response

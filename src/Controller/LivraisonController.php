@@ -8,7 +8,7 @@ use App\Repository\LivraisonRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony \Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/livraison')]
@@ -71,7 +71,7 @@ class LivraisonController extends AbstractController
     #[Route('/{idlivraison}', name: 'app_livraison_delete', methods: ['POST'])]
     public function delete(Request $request, Livraison $livraison, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$livraison->getIdlivraison(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $livraison->getIdlivraison(), $request->request->get('_token'))) {
             $entityManager->remove($livraison);
             $entityManager->flush();
         }
