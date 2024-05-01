@@ -1,0 +1,10 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Edit Rdv{% endblock %}
+
+{% block body %}
+    <br>
+    <h4><b>Modifier un Rendez Vous</b></h4>
+
+    {{ include('rdv/_form.html.twig', {'button_label': 'Update'}) }}
+{% endblock %}

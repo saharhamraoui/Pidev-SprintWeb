@@ -1,0 +1,29 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}Cabinet index{% endblock %}
+
+
+{% block body %}
+{% for cabinet in cabinets %}
+    <div class=" col-lg-4 col-md-6 col-sm-6">
+        <div class="single-services text-center mb-30">
+            <div class="services-ion">
+                <div class="services-cap">
+                    <h5><a href="#">{{ cabinet.nom }}</a></h5>
+                    <p>Adresse: {{ cabinet.adresse }}</p>
+                    <p>Code Postal: {{ cabinet.codepostal }}</p>
+                    <button class="btn">
+                        <a href="{{ path('app_rdv_new_front', {'id': cabinet.id}) }}">Réserver</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+<div class="pagination" style="margin-left:450px;">
+    {% do cabinets.setPageRange(3) %}
+    {{knp_pagination_render(cabinets, 'pagination.html.twig')}}
+    <br><br><br><br><br>
+</div>
+
+{% endblock %}

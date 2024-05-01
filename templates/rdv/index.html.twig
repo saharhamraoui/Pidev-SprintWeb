@@ -1,0 +1,67 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Rdv index{% endblock %}
+
+{% block body %}
+    <br>
+    <h4><b>Liste des Rendez Vous</b></h4>
+    <br>
+    <input type="text" class="form-control" id="searchInput" placeholder="Search&hellip;"> 
+    <br><br>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Numtel</th>
+                <th>Email</th>
+                <th>Daterdv</th>
+                <th>Cabinet</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for rdv in rdvs %}
+            <tr>
+                <td>{{ rdv.nom }}</td>
+                <td>{{ rdv.prenom }}</td>
+                <td>{{ rdv.numtel }}</td>
+                <td>{{ rdv.email }}</td>
+                <td>{{ rdv.daterdv ? rdv.daterdv|date('Y-m-d') : '' }}</td>
+                <td>{{ rdv.idCabinet.nom }}</td>
+                <td>
+                    <button class="btn btn-outline-secondary btn-sm"><a style="color:#000;" href="{{ path('app_rdv_show', {'id': rdv.id}) }}">show</a></button>
+                    <button class="btn btn-outline-danger btn-sm"><a style="color:#000;" href="{{ path('app_rdv_edit', {'id': rdv.id}) }}">edit</a></button>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <button class="btn btn-success"><a style="color:#000;" href="{{ path('app_rdv_new') }}">Ajouter un Rendez Vous</a></button>
+
+    <script>
+        function filterTable() {
+            const filter = document.getElementById('searchInput').value.toUpperCase();
+            const rows = document.querySelectorAll('table tr');
+            for (let i = 1; i < rows.length; i++) {
+                const cols = rows[i].querySelectorAll('td');
+                let visible = false;
+                for (let j = 0; j < cols.length; j++) {
+                    const cell = cols[j];
+                    if (cell.innerText.toUpperCase().indexOf(filter) > -1) {
+                        visible = true;
+                        break;
+                    }
+                }
+                rows[i].style.display = visible ? '' : 'none';
+            }
+        }
+        document.getElementById('searchInput').addEventListener('keyup', filterTable);
+	</script>
+{% endblock %}

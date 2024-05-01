@@ -1,0 +1,10 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Edit Cabinet{% endblock %}
+
+{% block body %}
+    <br>
+    <h4><b>Modifier un Cabinet</b></h4>
+
+    {{ include('cabinet/_form.html.twig', {'button_label': 'Update'}) }}
+{% endblock %}

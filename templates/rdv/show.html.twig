@@ -1,0 +1,44 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Rendez Vous{% endblock %}
+
+{% block body %}
+    <br>
+    <h4><b>Rendez Vous</b></h4>
+    <br>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Nom</th>
+                <td>{{ rdv.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ rdv.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Numtel</th>
+                <td>{{ rdv.numtel }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ rdv.email }}</td>
+            </tr>
+            <tr>
+                <th>Daterdv</th>
+                <td>{{ rdv.daterdv ? rdv.daterdv|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Cabinet</th>
+                <td>{{ rdv.idCabinet.nom }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <div align="center" class="card-footer">
+        <button class="btn"><a style="color:black; href="{{ path('app_rdv_edit', {'id': rdv.id}) }}">Modifier</a></button>
+        <button class="btn"><a style="color:black;" href="{{ path('app_rdv_index') }}">Consulter Liste</a></button>
+        {{ include('rdv/_delete_form.html.twig') }}
+    </div>
+{% endblock %}
