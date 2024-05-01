@@ -41,9 +41,22 @@ class DonationController extends AbstractController
             'donations' => $donationRepository->findAll(),
         ]);
     }
+    #[Route('/initiate-payment', name: 'initiate_payment', methods: ['POST'])]
+    public function initiatePayment(Request $request): JsonResponse
+    {
+        $requestData = json_decode($request->getContent(), true);
+        $donationValue = floatval($requestData['valeurdon']);
+
+        // Assuming the donation value is sent as JSON in the request body
+
+        // Initiate the payment
+        $paymentResponse = $this->KonnectPaymentService->initPayment($donationValue);
+
+        return new JsonResponse(['payUrl' => $paymentResponse->getPayUrl()]);
+    }
     
 
-    #[Route('/new', name: 'app_donation_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_donation_new', methods: ['GET'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $donation = new Donation();
@@ -54,7 +67,7 @@ class DonationController extends AbstractController
             $entityManager->persist($donation);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_donation_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('initiate_payment', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('donation/new.html.twig', [
@@ -115,6 +128,7 @@ class DonationController extends AbstractController
             'form' => $form,
         ]);
     }
+    
 
     #[Route('/{iddon}', name: 'app_donation_delete', methods: ['POST'])]
     public function delete(Request $request, Donation $donation, EntityManagerInterface $entityManager): Response

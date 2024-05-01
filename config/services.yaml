@@ -6,8 +6,13 @@
 parameters:
     brochures_directory: '%kernel.project_dir%/public/uploads' 
 
-    
 services:
+    App\Service\KonnectPaymentService:
+        class: src\Service\KonnectPaymentService
+        arguments:
+            $konnectConfig: '@App\Service\KonnectConfig'
+            $httpClient: '@http_client' # Assuming you have configured an HTTP client service
+
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
