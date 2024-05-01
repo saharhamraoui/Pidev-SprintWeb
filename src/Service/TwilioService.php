@@ -8,7 +8,7 @@ class TwilioService
 {
     private $accountSid = '';
     private $authToken = '';
-    private $twilioPhoneNumber = '+16562262555';
+    private $twilioPhoneNumber = '';
    
     public function sendSMS()
     {
