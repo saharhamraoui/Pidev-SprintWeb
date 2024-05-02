@@ -8,10 +8,13 @@
     justify-content: center;
     margin-top: 20px;
 }
-
+.container {
+    margin: 0 auto; /* Center the container horizontally */
+    width: 90%; /* Adjust the width as needed */
+}
 
 </style>
-<br /><br /><br /><br /><br /><br /><br /><br>
+<br /><br /><br /><br /><div class="container">
     <h1>Campaign List</h1>
     <table class="table">
             <tr >
@@ -44,4 +47,5 @@
     </table>
   <div class="paginator-container">
     {{ knp_pagination_render(campaigns) }}</div>
+    </div>
 {% endblock %}

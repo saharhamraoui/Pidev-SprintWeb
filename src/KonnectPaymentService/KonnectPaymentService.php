@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\KonnectPaymentService;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Psr\Log\LoggerInterface;

@@ -69,6 +69,14 @@
     }
 </style>
     <h1>Donations List</h1>
+     <br><br>
+    <div class="rs-select2--light rs-select2--md bg-secondary rounded-pill" style="margin-left: 890px; margin-top: -15px; width: 200px;">
+                        <select class="form-select rounded-pill bg-secondary text-light" name="sort" id="sortFilter">
+                            <option value="">Sort by Title</option>
+                            <option value="asc"><i class="fas fa-arrow-up"></i> Lowest to Highest</option>
+                            <option value="desc"><i class="fas fa-arrow-down"></i> Highest to Lowest</option>
+                        </select>
+</div>
 
     <table class="table">
        
@@ -80,6 +88,7 @@
                  <th>Donator Number</th>
             </tr>
         {% for donation in donations %}
+         <div  data-search="{{ donation.iddonator.firstname }} {{ donation.idcamp.titre }} {{ donation.valeurdon }} {{ donation.iddonator.number }}"> 
             <tr>
                 <td>{{ donation.iddonator.firstname }}</td>
                 <td>{{ donation.idcamp.titre }}</td>
@@ -99,4 +108,56 @@
         {% endfor %}
     </table>
     <a href="{{ path('app_donation_new') }}"class="btn btn-info-custom btn-sm">Make a donation</a>
+
+<script>
+    function filterTable() {
+        const filter = document.getElementById('searchInput').value.toUpperCase();
+        const sortFilter = document.getElementById('sortFilter').value;
+        const rows = document.querySelectorAll('tbody tr');
+
+        rows.forEach(row => {
+            const content = row.textContent.toUpperCase();
+            const isVisible = content.includes(filter);
+            row.classList.toggle('d-none', !isVisible);
+        });
+
+        // Sort by postal code
+        if (sortFilter !== '') {
+            const sortedRows = Array.from(rows).sort((a, b) => {
+                const codeA = a.cells[2].textContent.toLowerCase();
+                const codeB = b.cells[2].textContent.toLowerCase();
+                if (sortFilter === 'asc') {
+                    return codeA.localeCompare(codeB);
+                } else {
+                    return codeB.localeCompare(codeA);
+                }
+            });
+
+            const parent = rows[0].parentNode;
+            parent.innerHTML = '';
+            sortedRows.forEach(row => {
+                parent.appendChild(row);
+            });
+        }
+    }
+
+    document.getElementById('searchInput').addEventListener('keyup', filterTable);
+    document.getElementById('sortFilter').addEventListener('change', filterTable);
+</script>
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script>
+    let campaignNom = [];
+   
+
+    {% for donation in donations %}
+        campaignNom.push("{{ donation.idDonator.firstname}}");
+       
+    {% endfor %}
+    </script>
+
+
 {% endblock %}
