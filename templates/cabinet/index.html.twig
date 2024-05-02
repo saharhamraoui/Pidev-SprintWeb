@@ -28,7 +28,7 @@
         </thead>
         <tbody>
         {% for cabinet in cabinets %}
-            <div  data-search="{{ cabinet.nom }} {{ cabinet.adresse }} {{ cabinet.idMedecin.nom }} {{ cabinet.adressemail }} data-salary="{{ cabinet.codepostal|lower }}"> 
+            <div  data-search="{{ cabinet.nom }} {{ cabinet.adresse }}  {{ cabinet.adressemail }}" data-salary="{{ cabinet.codepostal|lower }}"> 
             <tr>
                 <td>{{ cabinet.nom }}</td>
                 <td>{{ cabinet.adresse }}</td>
