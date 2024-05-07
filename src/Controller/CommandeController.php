@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use App\Entity\Commande;
 use App\Entity\Restaurant;
 use App\Entity\User;
@@ -33,9 +35,7 @@ class CommandeController extends AbstractController
         $mailer->send($email);
 
 
-        return new Response(
-            'Email sent successfully'
-        );
+        return $this->redirectToRoute('app_commande_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/TemplateFrontCommande', name: 'app_commande_front')]
@@ -68,6 +68,30 @@ class CommandeController extends AbstractController
     }
 
 
+    #[Route('/pdfGenerator', name: 'app_user_pdf', methods: ['GET', 'POST'])]
+    public function exportPdf(CommandeRepository $commandeRepository): Response
+    {
+        $commandes = $commandeRepository->findAll();
+        $html = $this->renderView('commande/pdf.html.twig', ['commandes' => $commandes]);
+
+        // Set up Dompdf options and render the PDF
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isPhpEnabled', true);
+
+        $dompdf = new Dompdf();
+        $dompdf->setOptions($options);
+        $dompdf->loadHtml($html);
+        $dompdf->render();
+
+        // Return the PDF as a response
+        return new Response(
+            $dompdf->output(),
+            Response::HTTP_OK,
+            ['Content-Type' => 'application/pdf']
+        );
+    }
+
     #[Route('/', name: 'app_commande_index', methods: ['GET'])]
     public function index(CommandeRepository $commandeRepository): Response
     {
@@ -87,7 +111,7 @@ class CommandeController extends AbstractController
             $entityManager->persist($commande);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_commande_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_mailer', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('commande/new.html.twig', [

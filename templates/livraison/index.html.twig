@@ -1,61 +1,86 @@
 {% extends 'baseBack.html.twig' %}
 
 {% block body %}
-<style>/* Stylise le tableau */
-.table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #00796B;
-    /* Couleur de fond verte */
-    /* Ajoutez d'autres propriétés ici */
-}
+	<style>
+		/* Stylise le tableau */
+		.table {
+			width: 100%;
+			border-collapse: collapse;
+			background-color: #00796B;
+			/* Couleur de fond verte */
+			/* Ajoutez d'autres propriétés ici */
+		}
 
-/* Stylise les cellules du tableau */
-.table td,
-.table th {
-    padding: 10px;
-    border: 1px solid #ddd;
-    background-color: #FFFFFF;
-    /* Couleur de fond blanche (ou autre couleur de votre choix) */
-    /* Ajoutez d'autres propriétés ici */
-}
+		/* Stylise les cellules du tableau */
+		.table td,
+		.table th {
+			padding: 10px;
+			border: 1px solid #ddd;
+			background-color: #FFFFFF;
+			/* Couleur de fond blanche (ou autre couleur de votre choix) */
+			/* Ajoutez d'autres propriétés ici */
+		}
 
-/* Stylise les liens */
-a {
-    color: #00796B;
-    /* Couleur verte */
-    text-decoration: none;
-    /* Ajoutez d'autres propriétés ici */
-}</style>
+		/* Stylise les liens */
+		a {
+			color: #00796B;
+			/* Couleur verte */
+			text-decoration: none;
+			/* Ajoutez d'autres propriétés ici */
+		}
+	</style>
 	<h1>Livraison index</h1>
 
+	<input id="searchInput" placeholder="search">
 	<table class="table">
 		<thead>
 			<tr>
 				<th>Idlivraison</th>
-				<th>Idcommande</th>
 				<th>Statut</th>
 				<th>actions</th>
 			</tr>
 		</thead>
 		<tbody>
 			{% for livraison in livraisons %}
-				<tr>
-					<td>{{ livraison.idlivraison }}</td>
-					<td>{{ livraison.idcommande }}</td>
-					<td>{{ livraison.statut }}</td>
-					<td>
-						<a href="{{ path('app_livraison_show', {'idlivraison': livraison.idlivraison}) }}">show</a>
-						<a href="{{ path('app_livraison_edit', {'idlivraison': livraison.idlivraison}) }}">edit</a>
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="4">no records found</td>
-				</tr>
-			{% endfor %}
+				<div data-search="{{ livraison.statut }} {{ livraison.idlivraison }}">
+					<tr>
+						<td>{{ livraison.idlivraison }}</td>
+						<td>{{ livraison.statut }}</td>
+						<td>
+							<a href="{{ path('app_livraison_show', {'idlivraison': livraison.idlivraison}) }}">show</a>
+							<a href="{{ path('app_livraison_edit', {'idlivraison': livraison.idlivraison}) }}">edit</a>
+							<a href="{{ path('app_livraison_pdf', {'idlivraison': livraison.idlivraison}) }}">print</a>
+
+
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="4">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
 		</tbody>
 	</table>
 
 	<a href="{{ path('app_livraison_new') }}">Create new</a>
+
+	<script>
+		function filterTable() {
+const filter = document.getElementById('searchInput').value.toUpperCase();
+const sortFilter = document.getElementById('sortFilter').value;
+const rows = document.querySelectorAll('tbody tr');
+
+rows.forEach(row => {
+const content = row.textContent.toUpperCase();
+const isVisible = content.includes(filter);
+row.classList.toggle('d-none', ! isVisible);
+});
+
+}
+// Sort by postal code
+
+
+document.getElementById('searchInput').addEventListener('keyup', filterTable);
+	</script>
 {% endblock %}

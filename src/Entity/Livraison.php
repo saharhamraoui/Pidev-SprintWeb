@@ -16,11 +16,9 @@ class Livraison
     #[ORM\GeneratedValue]
     private $idlivraison;
 
-
-    #[Assert\NotBlank(message: ' the id cant be null ')]
-    #[ORM\Column(type: "integer")]
-    private ?int $idcommande;
-
+    #[ORM\ManyToOne(targetEntity: Commande::class)]
+    #[ORM\JoinColumn(name: "idcommande", referencedColumnName: "idcommande")]
+    private ?Commande $idcommande;
 
 
     #[Assert\NotBlank(message: ' the status cant be null ')]
@@ -37,12 +35,12 @@ class Livraison
         return $this->idlivraison;
     }
 
-    public function getIdcommande(): ?int
+    public function getIdcommande(): ?Commande
     {
         return $this->idcommande;
     }
 
-    public function setIdcommande(int $idcommande): static
+    public function setIdcommande(Commande $idcommande): static
     {
         $this->idcommande = $idcommande;
 

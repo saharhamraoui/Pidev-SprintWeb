@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use App\Entity\Livraison;
 use App\Form\Livraison1Type;
 use App\Repository\LivraisonRepository;
@@ -14,6 +16,41 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/livraison')]
 class LivraisonController extends AbstractController
 {
+    #[Route('/{idlivraison}/print', name: 'app_livraison_pdf', methods: ['GET'])]
+    public function AfficheTicketPDF(LivraisonRepository $repo, Livraison $livraison)
+    {
+        $pdfoptions = new Options();
+        $pdfoptions->set('defaultFont', 'Arial');
+        $pdfoptions->setIsRemoteEnabled(true);
+
+
+        $dompdf = new Dompdf($pdfoptions);
+
+        $livraison = $repo->find($livraison->getIdlivraison());
+
+        // Check if the cabinet exists
+        if (!$livraison) {
+            throw $this->createNotFoundException('Your Cabinet does not exist');
+        }
+
+        $html = $this->renderView('livraison/pdf.html.twig', [
+            'livraison' => $livraison
+        ]);
+
+        $html = '<div>' . $html . '</div>';
+
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A6', 'landscape');
+        $dompdf->render();
+
+        $pdfOutput = $dompdf->output();
+
+        return new Response($pdfOutput, Response::HTTP_OK, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="cabinetPDF.pdf"'
+        ]);
+    }
+
     #[Route('/', name: 'app_livraison_index', methods: ['GET'])]
     public function index(LivraisonRepository $livraisonRepository): Response
     {
@@ -33,7 +70,7 @@ class LivraisonController extends AbstractController
             $entityManager->persist($livraison);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_livraison_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('send_sms', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('livraison/new.html.twig', [

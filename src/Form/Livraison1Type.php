@@ -12,7 +12,9 @@ class Livraison1Type extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('idcommande')
+            ->add('idcommande', null, [
+                'choice_label' => 'adresselivraison'
+            ])
             ->add('statut')
             ->add('idlivreur', null, [
                 'choice_label' => 'FirstName'
