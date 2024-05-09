@@ -1,0 +1,61 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}{{ recette.nomrec }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('path/to/bootstrap.min.css') }}">
+    <style>
+        .card-img-top {
+            max-height: 300px;
+            object-fit: cover;
+        }
+        .card-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .card-subtitle {
+            font-size: 14px;
+            margin-top: 20px;
+        }
+        .list-group-item {
+            background-color: #f8f9fa;
+            border: none;
+            padding: 5px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}<br><br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card mt-5">
+                    <img src="{{ asset(recette.imagerec) }}" class="card-img-top" alt="{{ recette.nomrec }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ recette.nomrec }}</h5>
+                        <p class="card-text"><strong>Category:</strong> {{ recette.categoryr }}</p>
+                        <p class="card-text"><strong>Difficulty:</strong> {{ recette.difficulty }}</p>
+                        <p class="card-text"><strong>Serves:</strong> {{ recette.serves }}</p>
+                        <p class="card-text"><strong>Preparation Time:</strong> {{ recette.prep }}</p>
+                        <p class="card-text"><strong>Date:</strong> {{ recette.date }}</p>
+                        <p class="card-text"><strong>Rating:</strong> {{ recette.rating }}</p>
+                        <h6 class="card-subtitle mb-2 text-muted">Ingredients:</h6>
+                        <ul class="list-group">
+                            {% for ingredient in recette.ingredients %}
+                                <li class="list-group-item">{{ ingredient.nameing }} - {{ ingredient.amount }}</li>
+                            {% endfor %}
+                        </ul>
+                        <h6 class="card-subtitle mt-3 mb-2 text-muted">Instructions:</h6>
+                        <p class="card-text">{{ recette.description }}</p>
+                        <a href="{{ path('recipe_pdf' ,{id: recette.idrec}) }}" class="btn btn-sm btn-primary">
+                            <i class="fa fa-edit" aria-hidden="true"></i> {{ 'Generate pdf'|trans }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- -->
+{% endblock %}

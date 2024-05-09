@@ -1,0 +1,23 @@
+
+
+
+<h1 class="align-center">Menu </h1>
+
+<p>List of meals</p>
+<table class="table" border="5" >
+    <thead>
+    <tr> <th>Name</th> <th>Category</th> <th>Price</th> <th>Ingredients</th> <th>Image</th> </tr>
+
+    </thead>
+    <tbody>
+    {% for plat in menu %}
+    <tr>
+<td>{{ plat.namep }}</td>
+<td>{{ plat.categoryp }}</td>
+<td>{{ plat.pricep }}</td>
+<td> {{ plat.ingredientsp }} </td>
+<td><img src="{{ asset('uploads/'~ plat.imagep ) }}" width="250" height="150"></td>            
+        </tr>            {% endfor %}
+
+        </tbody>
+</table>

@@ -1,0 +1,52 @@
+{# recette/pdf.html.twig #}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ recette.nomrec }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .recipe-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .recipe-detail {
+            margin-bottom: 10px;
+        }
+        .recipe-description {
+            margin-top: 20px;
+        }
+        .ingredient-list {
+            margin-top: 20px;
+        }
+        .ingredient-item {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="recipe-title">{{ recette.nomrec }}</div>
+    <div class="recipe-detail">Category: {{ recette.categoryr }}</div>
+    <div class="recipe-detail">Difficulty: {{ recette.difficulty }}</div>
+    <div class="recipe-detail">Serves: {{ recette.serves }}</div>
+    <div class="recipe-detail">Preparation Time: {{ recette.prep }}</div>
+    <div class="recipe-detail">Date: {{ recette.date|date('Y-m-d') }}</div>
+    <div class="recipe-detail">Rating: {{ recette.rating }}</div>
+
+    <div class="ingredient-list">
+        <h2>Ingredients:</h2>
+        <ul>
+            {% for ingredient in recette.ingredients %}
+                <li class="ingredient-item">{{ ingredient.nameing }} - {{ ingredient.amount }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="recipe-description">
+        <h2>Instructions:</h2>
+        <p>{{ recette.description }}</p>
+    </div>
+</body>
+</html>

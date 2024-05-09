@@ -1,0 +1,36 @@
+{# templates/recette/index.html.twig #}
+
+{% block title %}Recipes{% endblock %}
+
+{% block main %}
+  <h1>Recipes</h1>
+  <ul>
+    {% for recette in recettes %}
+      <li>
+        <h2>{{ recette.nomrec }}</h2>
+        <p>Category: {{ recette.categoryr }}</p>
+        <p>Difficulty: {{ recette.difficulty }}</p>
+        <p>Serves: {{ recette.serves }}</p>
+        <p>Preparation time: {{ recette.prep }}</p>
+        <p>Date: {{ recette.date }}</p>
+        <p>Rating: {{ recette.rating }}</p>
+        <p>Image: <img src="{{ asset('uploads/' ~ recette.imagerec) }}" alt="{{ recette.nomrec }}"></p>
+
+        <h2>Ingredients</h2>
+        <ul>
+          {% for ingredient in recette.ingredients %}
+            <li>{{ ingredient.nameing }} - {{ ingredient.amount }}</li>
+          {% endfor %}
+        </ul>
+
+        <h2>Instructions</h2>
+        <ol>
+          <li>{{ recette.description }}</li>
+        </ol>
+
+      </li>
+    {% endfor %}
+  </ul>
+
+  <a href="{{ path('app_addRecette') }}">Create a new recipe</a>
+{% endblock %}

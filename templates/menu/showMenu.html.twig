@@ -1,0 +1,50 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block body %}
+    <div style="display: flex; align-items: center;">
+        <div style="margin-right: 159px;">
+            <br>
+            <h1>Menu</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Ingredients</th>
+                        <th>Image</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for plat in menu %}
+                        <tr>
+                            <td>{{ plat.namep }}</td>
+                            <td>{{ plat.categoryp }}</td>
+                            <td>{{ plat.pricep }}</td>
+                            <td>{{ plat.ingredientsp }}</td>
+                            <td><img src="{{ asset(plat.imagep) }}" height="100"></td>
+                            <td class="text-right">
+                    <div class="item-actions">
+                        <a href="{{ path('app_menu_delete', {id: plat.idp}) }}" class="btn btn-sm btn-secondary">
+                            <i class="fa fa-eye" aria-hidden="true"></i> {{ 'delete'|trans }}
+                        </a>
+
+                        <a href="{{ path('app_menu_edit', {id: plat.idp}) }}" class="btn btn-sm btn-primary">
+                            <i class="fa fa-edit" aria-hidden="true"></i> {{ 'edit'|trans }}
+                        </a>
+                    </div>
+                </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a href="{{ path('app_addMenu') }}">Add a dish</a><br><br>
+            <a href="{{ path('send_smsMenu') }}" class="btn btn-sm btn-primary">
+                            <i class="fa fa-edit" aria-hidden="true"></i> {{ 'Send SMS'|trans }}
+                        </a>
+            <a href="{{ path('menuPDF') }}" class="btn btn-sm btn-primary">
+                            <i class="fa fa-edit" aria-hidden="true"></i> {{ 'Print pdf'|trans }}
+                        </a>
+        </div>
+    </div>
+{% endblock %}

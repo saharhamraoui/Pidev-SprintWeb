@@ -1,0 +1,72 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block body %}
+    <div style="display: flex; align-items: center;">
+        <div style="margin-right: 159px;">
+
+            <br>
+            <h1>Recipes</h1>
+            <table>
+                <thead>
+                    <tr> <th>Name</th>
+                        <th>Category</th>
+                        <th>Difficulty</th>
+                        <th>Serves</th>
+                        <th>Preparation time</th>
+                        <th>Date</th>
+                        <th>Rating</th>
+                        <th>Image</th>
+                        <th>Ingredients</th>
+                        <th>Instructions</th>
+                        <th>etat</th>
+                        <th>actions</th>
+
+                    </tr> </thead>
+
+                    <tbody>
+                        {% for recette in recettes %}
+                            <tr>
+                                <td>{{ recette.nomrec }}</td>
+                                <td>{{ recette.categoryr }}</td>
+                                <td>{{ recette.difficulty }}</td>
+                                <td>{{ recette.serves }}</td>
+                                <td>{{ recette.prep }}</td>
+                                <td>{{ recette.date }}</td>
+                                <td>{{ recette.rating }}</td>
+                                <td><img src="{{ asset(recette.imagerec) }}" height="100"></td>
+                                    <td class="text-right">
+                    <div class="item-actions">
+                        <a href="{{ path('app_recette_ing', {id: recette.idrec}) }}" class="btn btn-sm btn-primary">
+                            <i class="fa fa-edit" aria-hidden="true"></i> {{ 'View ingredients'|trans }}
+                        </a>
+                    </div>
+                </td>
+                                <td>
+                                    <ol> <li>{{ recette.description }}</li>
+                                    </ol> </td>
+                                <td>{{ recette.etatValide }}</td>
+                                <td><div class="item-actions">
+                        <a href="{{ path('recipe_email', {id: recette.idrec}) }}" class="btn btn-sm btn-secondary">
+                            <i class="fa fa-eye" aria-hidden="true"></i> {{ 'Validate'|trans }}
+                        </a></div>
+                                </td>
+                                <td class="text-right">
+                    <div class="item-actions">
+                        <a href="{{ path('app_recette_delete', {id: recette.idrec}) }}" class="btn btn-sm btn-secondary">
+                            <i class="fa fa-eye" aria-hidden="true"></i> {{ 'delete'|trans }}
+                        </a></div>
+                </td>
+                                <td class="text-right">
+                    <div class="item-actions">
+                        <a href="{{ path('app_recette_edit', {id: recette.idrec}) }}" class="btn btn-sm btn-primary">
+                            <i class="fa fa-edit" aria-hidden="true"></i> {{ 'edit'|trans }}
+                        </a>
+                    </div>
+                </td>
+                </tr>
+                        {% endfor %} </tbody> </table>
+                        <a href="{{ path('app_addRecette') }}">Create a new recipe</a>
+
+        </div>
+    </div>
+{% endblock %}

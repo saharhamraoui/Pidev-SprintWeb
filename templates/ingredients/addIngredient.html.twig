@@ -1,0 +1,14 @@
+{% extends 'baseBack.html.twig' %}
+{# templates/task/new.html.twig #}
+
+{% block body %}
+<div style="display: flex; align-items: center;">
+    <div style="margin-right: 159px;">
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'style': 'margin: 90px;'}}) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+
+</div>
+{% endblock %}
+

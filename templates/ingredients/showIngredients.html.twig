@@ -1,0 +1,39 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block body %}
+    <div style="display: flex; align-items: center;">
+        <div style="margin-right: 159px;">
+            <br>
+            <h1>Ingredients</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ingredient in ingredients %}
+                        <tr>
+                            <td>{{ ingredient.nameing }}</td>
+                            <td>{{ ingredient.amount }}</td>
+                            <td class="text-right">
+                    <div class="item-actions">
+                        <a href="{{ path('app_ingredients_delete', {id: ingredient.iding}) }}" class="btn btn-sm btn-secondary">
+                            <i class="fa fa-eye" aria-hidden="true"></i> {{ 'delete'|trans }}
+                        </a>
+
+                        <a href="{{ path('app_ingredients_edit', {id: ingredient.iding}) }}" class="btn btn-sm btn-primary">
+                            <i class="fa fa-edit" aria-hidden="true"></i> {{ 'edit'|trans }}
+                        </a>
+                    </div>
+                </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a href="{{ path('app_addIngredient',{id: recette.idrec}) }}">Add ingredient</a>
+        </div>
+    </div>
+{% endblock %}
+ 

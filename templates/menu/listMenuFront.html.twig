@@ -1,0 +1,139 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}Dish Details{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .container {
+            margin-top: 40px;
+        }
+
+        .card {
+            border: none;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .card-img-top {
+            border-top-right-radius: 10px;
+            border-top-left-radius: 10px;
+            object-fit: cover;
+            height: 300px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        /* Center the table */
+        .table-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        /* Clear table columns */
+        .table thead th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            border-bottom: none;
+        }
+
+        .table tbody td {
+            border-bottom: none;
+        }
+
+        .btn-view-details {
+            padding: 8px 16px;
+            font-size: 14px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+
+        .btn-view-details:hover {
+            background-color: #0056b3;
+        }
+        /* Adjust button size */
+        .btn {
+            padding: 0.5rem 1rem;
+            font-size: 14px;
+        }
+        .view-details-button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-top: 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.view-details-button:hover {
+  background-color: #0056b3;
+}
+        /* Center align the table */
+        .table-container table {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Center the button */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}<br><br><br><br><br>
+    <div class="container">
+        <h1>Menu</h1>
+
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>View Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for menuItem in menu %}
+                        <tr>
+                            <td>{{ menuItem.namep }}</td>
+                            <td>{{ menuItem.pricep }}</td>
+
+                             <td class="item-actions">
+                              <a href="{{ path('menu_showFront', {id: menuItem.idp}) }}" class="btn btn-xs btn-primary">
+                                <i class="fa fa-eye" aria-hidden="true"></i> {{ 'details'|trans }}
+                             </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
